@@ -138,6 +138,8 @@ RESOURCES += \
     spider2.qrc \
     vscode.qrc
 
+include($$PWD/../lib/lib.pri)
+
 #include(SingleApplication/singleapplication.pri)
 #DEFINES += QAPPLICATION_CLASS=QApplication
 

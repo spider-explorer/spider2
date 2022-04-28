@@ -8,8 +8,7 @@
 #include "junctionmanager.h"
 
 #include "MemoryModule.h"
-#include "../lib/lib.h"
-
+#include "lib.h"
 
 void myCallback(void *data, int64_t extractSizeTotal)
 {
@@ -21,29 +20,6 @@ void myCallback(void *data, int64_t extractSizeTotal)
         Qt::AlignLeft, Qt::white);
 }
 
-static bool extractArchive(const char *archivePath,
-                           const char *outputDir,
-                           void *data,
-                           ArchiveProgressCallback callback)
-{
-    static HMEMORYMODULE h = nullptr;
-    if(!h)
-    {
-        QFile dll(":/lib-x86_64-static.dll");
-        if(dll.open(QIODevice::ReadOnly))
-        {
-            qDebug() << "dll opened.";
-            QByteArray bytes = dll.readAll();
-            h = MemoryLoadLibrary(bytes.data(), bytes.size());
-            qDebug() << h;
-        }
-    }
-    if(!h) return false;
-    proto_extract_archive extract_archive = (proto_extract_archive)MemoryGetProcAddress(h, "extract_archive");
-    qDebug() << (void *)extract_archive;
-    if(!extract_archive) return false;
-    return extract_archive(archivePath, outputDir, data, callback);
-}
 static QString prepareMain(QSplashScreen &splash)
 {
     JNetworkManager nm;

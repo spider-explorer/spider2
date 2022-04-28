@@ -11,9 +11,33 @@
 #include "wslcore.h"
 #include "jnetwork.h"
 #include "junctionmanager.h"
+
+#include "lib.h"
+
 static SpiderCore *s_core = nullptr;
 static JsonSettings *s_settings = nullptr;
 static QMutex *s_mutex = nullptr;
+struct DecompressInfo
+{
+    QSplashScreen *splash = nullptr;
+    QLocale *locale = nullptr;
+    QString progName;
+    QString version;
+};
+
+void myCallback(void *data, int64_t extractSizeTotal)
+{
+    //qDebug() << "myCallback() called.";
+    DecompressInfo *dinfo = (DecompressInfo *)data;
+    //QLocale locale;
+    dinfo->splash->showMessage(
+        QString("%1 を更新中(%2)...インストール中: %3")
+        .arg(dinfo->progName)
+        .arg(dinfo->version)
+        .arg(dinfo->locale->formattedDataSize(extractSizeTotal)),
+        Qt::AlignLeft, Qt::white);
+}
+
 QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName)
 {
     JNetworkManager nm;
@@ -48,6 +72,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
     QString junctionDir = m_env["prof"] + QString("/.software/%1/current").arg(progName);
     if (!QFileInfo(installDir).exists())
     {
+#if 0x0
         qDebug() << extractZip(dlPath, installDir,
                                [this, &locale, progName, version](qint64 extractSizeTotal)
         {
@@ -58,6 +83,20 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
                 .arg(locale.formattedDataSize(extractSizeTotal)),
                 Qt::AlignLeft, Qt::white);
         });
+#else
+        //struct DecompressInfo
+        //{
+        //    QSplashScreen *splash = nullptr;
+        //    QLocale *locale = nullptr;
+        //    QString progName;
+        //    QString version;
+        //};
+        DecompressInfo dinfo { &m_splash, &locale, progName, version };
+        qDebug() << extractArchive(dlPath.toStdString().c_str(),
+                                   installDir.toStdString().c_str(),
+                                   (void *)&dinfo,
+                                   myCallback);
+#endif
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);
     }
@@ -85,6 +124,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
     }
     return junctionDir;
 }
+#if 0x0
 QString SpiderCore::prepareWsl(QString distroName)
 {
     JNetworkManager nm;
@@ -100,6 +140,7 @@ QString SpiderCore::prepareWsl(QString distroName)
     }
     return installDir + QString("/%1.tar").arg(distroName);
 }
+#endif
 SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_splash(splash), m_settings("spider")
 {
     qDebug() << "SpiderCore::SpiderCore(1)";
@@ -230,9 +271,11 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     QString jq_dir = prepareProgram(softwareSettings, "jq");
 #endif
     //
+#if 0x0
     QString ubuntuTar = prepareWsl("Ubuntu");
     m_env["ubuntuTar"] = ubuntuTar;
     qDebug() << ubuntuTar << QFileInfo(ubuntuTar).exists();
+#endif
     m_watcher.setTopDir(m_env["repoRoot"]);
 }
 QSplashScreen &SpiderCore::splash()

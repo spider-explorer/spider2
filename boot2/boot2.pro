@@ -37,6 +37,7 @@ DEFINES += QAPPLICATION_CLASS=QApplication
 
 include($$(HOME)/qt/common/common.pri)
 
+include($$PWD/../lib/lib.pri)
+
 RESOURCES += \
-    ../lib/lib.qrc \
     boot.qrc

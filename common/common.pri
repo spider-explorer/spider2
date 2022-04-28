@@ -31,7 +31,7 @@ HEADERS += \
 #    $$PWD/zlib/zlib.h \
 #    $$PWD/zlib/zutil.h
 
-gcc:HEADERS += $$PWD/jarchiver.h $$PWD/jinstaller.h
+#gcc:HEADERS += $$PWD/jarchiver.h $$PWD/jinstaller.h
 
 SOURCES += \
     $$PWD/MemoryModule.c \
@@ -62,26 +62,26 @@ SOURCES += \
 #    $$PWD/zlib/zip.c \
 #    $$PWD/zlib/zutil.c
 
-gcc:SOURCES += $$PWD/jarchiver.cpp $$PWD/jinstaller.cpp
+#gcc:SOURCES += $$PWD/jarchiver.cpp $$PWD/jinstaller.cpp
 
 INCLUDEPATH += $$PWD
-INCLUDEPATH += $$PWD/zlib
-msvc:INCLUDEPATH += $$(HOME)/conan/binaries/include
-msvc:LIBS += -L$$(HOME)/conan/binaries/lib
+#INCLUDEPATH += $$PWD/zlib
+#msvc:INCLUDEPATH += $$(HOME)/conan/binaries/include
+#msvc:LIBS += -L$$(HOME)/conan/binaries/lib
 
-msvc:QMAKE_LFLAGS += /FORCE
+#msvc:QMAKE_LFLAGS += /FORCE
 
-msvc:LIBS += -LC:/qtb/qt-6.2.2-static-msvc2019-x86_64/lib
+#msvc:LIBS += -LC:/qtb/qt-6.2.2-static-msvc2019-x86_64/lib
 
-msvc:INCLUDEPATH += C:/qtb/bit7z/include
-msvc:LIBS += -LC:/qtb/bit7z/lib bit7z64.lib
+#msvc:INCLUDEPATH += C:/qtb/bit7z/include
+#msvc:LIBS += -LC:/qtb/bit7z/lib bit7z64.lib
 
-msvc:DEFINES += LIBARCHIVE_STATIC
+#msvc:DEFINES += LIBARCHIVE_STATIC
 
 gcc {
-    LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
-    LIBS += -lcrypto -lssl
-    LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
+    #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
+    #LIBS += -lcrypto -lssl
+    #LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
 }
 msvc {
     #LIBS += archive_static.lib
