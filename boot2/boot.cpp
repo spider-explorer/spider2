@@ -57,10 +57,15 @@ static QString prepareMain(QSplashScreen &splash)
                 Qt::AlignLeft, Qt::white);
         });
     }
+    if(!QFileInfo(dlPath).exists())
+    {
+        qDebug() << u8"確認", "本体のダウンロードが失敗しました";
+        QMessageBox::information(nullptr, "確認", "本体のダウンロードが失敗しました");
+    }
     QString installDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
                          QString("/.spider-explorer2/.install/%1").arg(version);
     QString junctionDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                         QString("/.spider-explorer2/.install/current").arg(version);
+                         QString("/.spider-explorer2/.install/current");
     if (!QFileInfo(installDir).exists())
     {
 #if 0x0
@@ -71,10 +76,13 @@ static QString prepareMain(QSplashScreen &splash)
                 Qt::AlignLeft, Qt::white);
         });
 #else
-        qDebug() << extractArchive(dlPath.toStdString().c_str(),
-                                   installDir.toStdString().c_str(),
-                                   (void *)&splash,
-                                   myCallback);
+        qDebug() << "dlPath:" << dlPath;
+        qDebug() << "installDir:" << installDir;
+        qDebug() << "boot:extractArchive()" << extractArchive(
+                        dlPath.toStdString().c_str(),
+                        installDir.toStdString().c_str(),
+                        (void *)&splash,
+                        myCallback);
 #endif
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);

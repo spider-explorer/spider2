@@ -13,6 +13,7 @@ static bool extractArchive(const char *archivePath,
                            void *data,
                            ArchiveProgressCallback callback)
 {
+    qDebug() << "extractArchive(1)";
     static HMEMORYMODULE h = nullptr;
     if(!h)
     {
