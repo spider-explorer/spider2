@@ -13,6 +13,7 @@
 
 void myCallback(void *data, int64_t extractSizeTotal)
 {
+    //qDebug() << "myCallback() called.";
     QSplashScreen *splash = (QSplashScreen *)data;
     QLocale locale;
     splash->showMessage(
@@ -33,12 +34,13 @@ static bool extractArchive(const char *archivePath,
         {
             qDebug() << "dll opened.";
             QByteArray bytes = dll.readAll();
-            HMEMORYMODULE h = MemoryLoadLibrary(bytes.data(), bytes.size());
+            h = MemoryLoadLibrary(bytes.data(), bytes.size());
             qDebug() << h;
         }
     }
     if(!h) return false;
     proto_extract_archive extract_archive = (proto_extract_archive)MemoryGetProcAddress(h, "extract_archive");
+    qDebug() << (void *)extract_archive;
     if(!extract_archive) return false;
     return extract_archive(archivePath, outputDir, data, callback);
 }
@@ -46,9 +48,7 @@ static QString prepareMain(QSplashScreen &splash)
 {
     JNetworkManager nm;
     QLocale locale;
-    //QString spider2Json = nm.getBatchAsText(QUrl("https://gitlab.com/javacommons/spider-release/-/raw/main/spider.json"));
     QString spider2Json = nm.getBatchAsText(QUrl("https://raw.githubusercontent.com/spider-explorer/spider2/main/spider.json"));
-    // https://raw.githubusercontent.com/spider-explorer/spider/main/spider.json
     qDebug().noquote() << spider2Json;
     QJsonParseError error;
     QJsonDocument jsonDoc = QJsonDocument::fromJson(spider2Json.trimmed().toUtf8(), &error);
@@ -63,7 +63,7 @@ static QString prepareMain(QSplashScreen &splash)
     qDebug() << urlString;
     splash.showMessage("Spider本体を準備中...", Qt::AlignLeft, Qt::white);
     QString dlPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                     QString("/.spider-explorer/.install/%1.7z").arg(version);
+                     QString("/.spider-explorer2/.install/%1.7z").arg(version);
     if (!QFileInfo(dlPath).exists())
     {
         if(true)/**/
@@ -82,9 +82,9 @@ static QString prepareMain(QSplashScreen &splash)
         });
     }
     QString installDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                         QString("/.spider-explorer/.install/%1").arg(version);
+                         QString("/.spider-explorer2/.install/%1").arg(version);
     QString junctionDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                         QString("/.spider-explorer/.install/current").arg(version);
+                         QString("/.spider-explorer2/.install/current").arg(version);
     if (!QFileInfo(installDir).exists())
     {
 #if 0x0

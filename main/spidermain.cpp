@@ -21,6 +21,9 @@ SpiderMain::SpiderMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::Spider
             geometry = QRect(pos, size);
         }
         this->setGeometry(geometry);
+        ::SetForegroundWindow((HWND)winId());
+        //this->setWindowFlags(Qt::WindowStaysOnTopHint);
+        this->setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
     ui->toolBar->setStyleSheet(
         "QToolButton:!hover {background-color:lightgray} QToolBar {background: rgb(30, 30, 30)}");

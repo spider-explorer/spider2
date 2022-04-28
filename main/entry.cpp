@@ -37,6 +37,9 @@ extern "C" __declspec(dllexport) void entry1(const char *main_dll_path, int argc
     QObject::connect(&app, &SpiderApplication::signal_entry2, &w, &SpiderMain::on__signal_entry2);
     w.show();
     splash.finish(&w);
+    //w.setWindowState((w.windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+    //w.activateWindow(); // for Windows
+    //w.raise();          // for MacOS
     exit(app.exec());
 }
 extern "C" __declspec(dllexport) void entry2()
