@@ -1,4 +1,4 @@
-#include "scoopsearchdialog.h"
+﻿#include "scoopsearchdialog.h"
 #include "ui_scoopsearchdialog.h"
 ScoopSearchDialog::ScoopSearchDialog(QMap<QString, QString> env, QWidget *parent)
     : QDialog(parent), m_env(env), ui(new Ui::ScoopSearchDialog)
@@ -61,8 +61,16 @@ void ScoopSearchDialog::on_lineEdit_textChanged(const QString &arg1)
     {
         QString bucket = m_map[key].toMap()["bucket"].toString();
         QString desc = m_map[key].toMap()["description"].toString();
+#if 0x0
         if (!arg1.isEmpty() && !key.toLower().contains(arg1.toLower()) && !desc.toLower().contains(arg1.toLower()))
             continue;
+#else
+        if(!arg1.isEmpty())
+        {
+            QRegularExpression rx(arg1, QRegularExpression::CaseInsensitiveOption);
+            if(!rx.match(key).hasMatch() && !rx.match(desc).hasMatch()) continue;
+        }
+#endif
         bool installed = m_map[key].toMap()["installed"].toBool();
         if (arg1.isEmpty() && !installed)
             continue;
