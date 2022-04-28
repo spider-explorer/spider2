@@ -1,4 +1,4 @@
-#include "variantserializer.h"
+﻿#include "variantserializer.h"
 static QString variantToString(const QVariant &v)
 {
     QJsonDocument jdoc = QJsonDocument::fromVariant(v);
@@ -24,16 +24,16 @@ QVariant VariantSerializer::deserialize(const QByteArray &x)
 {
     return this->deserializeFromBinary(QByteArray::fromBase64(x));
 }
-QString VariantSerializer::serializeToString(const QVariant &x)
+QString VariantSerializer::serializeToString(const QVariant &x, bool verbose)
 {
     QString s = VariantSerializer().serialize(x);
-    // s += " " + variantToString(x);
+    if (verbose) s += " " + variantToString(x);
     return s;
 }
 QVariant VariantSerializer::deserializeFromString(const QString &x)
 {
     QString s = x;
-    // s = s.split(" ").at(0);
+    s = s.split(" ").at(0);
     return VariantSerializer().deserialize(s.toLatin1());
 }
 QByteArray VariantSerializer::serializeToBinary(const QVariant &x)

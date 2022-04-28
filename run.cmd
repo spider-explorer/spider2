@@ -1,2 +1,2 @@
-start boot-x86_64-static.exe %*
+start boot2-x86_64-static.exe %*
 

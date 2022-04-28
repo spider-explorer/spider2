@@ -1,8 +1,9 @@
-QT += core gui widgets network
+QT += core gui widgets network quick
 
 #CONFIG += c++17
 
 HEADERS += \
+    $$PWD/JSValueToText.h \
     $$PWD/MemoryModule.h \
     $$PWD/jchecksum.h \
     $$PWD/jlistwidget.h \

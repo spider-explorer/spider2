@@ -1,9 +1,9 @@
 #! bash -uvx
 set -e
 cwd=`pwd`
-killall boot-x86_64-static || true
+killall boot2-x86_64-static || true
 sleep 3
-cp -p boot-x86_64-static.exe ~/../
+cp -p boot2-x86_64-static.exe ~/../
 rm -rf *.tmp
 rm -rf common
 cp -rp ~/qt/common .
@@ -27,22 +27,22 @@ cat << EOS > spider.json
     "depends": [
     ],
     "url": [
-        "https://github.com/spider-explorer/spider/releases/download/v$ts/spider-v$ts.zip"
+        "https://github.com/spider-explorer/spider2/releases/download/v$ts/spider-v$ts.zip"
     ],
     "hash": [
         "$sum1"
     ],
     "bin": [
         [
-            "boot-x86_64-static.exe",
-            "spider",
+            "boot2-x86_64-static.exe",
+            "spider2",
             "--dumy"
         ]
     ],
     "shortcuts": [
         [
-            "boot-x86_64-static.exe",
-            "Spider",
+            "boot2-x86_64-static.exe",
+            "Spider2",
             "--dummy"
         ]
     ],
