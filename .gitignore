@@ -9,6 +9,8 @@ x86_64-win64
 *.dll
 *.exe
 *.ilk
+*.iobj
+*.ipdb
 *.pdb
 *.tmp
 *.torrent

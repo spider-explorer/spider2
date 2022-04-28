@@ -2,7 +2,6 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <iostream>
-#include <QRegExp>
 static QMap<QString, QString> g_env;
 QJsonDocument ignoredList(QString cwd)
 {

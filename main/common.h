@@ -4,7 +4,6 @@
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>
-#include <QRegExp> // for Qt6
 static QString var(const QVariant &v, bool pretty = false)
 {
     QJsonDocument jdoc = QJsonDocument::fromVariant(v);
@@ -105,7 +104,8 @@ static inline void updateListWidgetContent(QListWidget *lw, QStringList *newCont
 }
 static bool isVaridFolderName(QString x)
 {
-    QRegExp rx("^[a-z0-9._-]+$", Qt::CaseSensitivity::CaseInsensitive);
-    return rx.exactMatch(x);
+    QRegularExpression rx("^[a-z0-9._-]+$", QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch m = rx.match(x);
+    return m.hasMatch();
 }
 #endif // COMMON_H

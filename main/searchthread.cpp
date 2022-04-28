@@ -1,7 +1,6 @@
 ﻿#include "searchthread.h"
 #include "recursivefilelister.h"
 #include "spidercore.h"
-#include <QRegExp> // for Qt6
 qint64 SearchThread::count = 0;
 SearchThread::SearchThread(QString topDir, QString rxString, QObject *parent)
     : QThread(parent), m_topDir(topDir), m_rxString(rxString)
@@ -16,7 +15,7 @@ void SearchThread::run()
 {
     try
     {
-        QRegExp rx(m_rxString, Qt::CaseInsensitive);
+        QRegularExpression rx(m_rxString, QRegularExpression::CaseInsensitiveOption);
         QStringList pathList = RecursiveFileLister().listFiles(m_topDir,
                                [this, rx](QString path) -> bool
         {
@@ -31,7 +30,7 @@ void SearchThread::run()
                 }
             }
             QString fileName = QFileInfo(path).fileName();
-            return (rx.indexIn(fileName) != -1);
+            return (rx.match(fileName).hasPartialMatch());
         });
         emit searchFinished(m_id, m_topDir, m_rxString, pathList);
     }

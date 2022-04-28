@@ -3,7 +3,6 @@
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>
-#include <QRegExp> // for Qt6
 RepoDialog::RepoDialog(QWidget *parent) : QDialog(parent), ui(new Ui::RepoDialog)
 {
     ui->setupUi(this);
@@ -25,12 +24,12 @@ QString RepoDialog::name() const
 #endif
 void RepoDialog::on_lineEdit_textChanged(const QString &arg1)
 {
-    QRegExp rx("^[a-z0-9_-]+$", Qt::CaseSensitivity::CaseInsensitive);
+    QRegularExpression rx("^[a-z0-9_-]+$", QRegularExpression::CaseInsensitiveOption);
     if (arg1.isEmpty())
     {
         m_url = "";
     }
-    else if (rx.exactMatch(arg1))
+    else if (rx.match(arg1).hasMatch())
     {
         m_url = "https://gitlab.com/javacommons/" + arg1;
     }
