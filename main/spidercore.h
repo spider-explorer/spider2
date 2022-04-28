@@ -2,7 +2,6 @@
 #define SPIDERCORE_H
 #include "favmanager.h"
 #include "jsonsettings.h"
-#include "recursivefilesystemwatcher.h"
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
@@ -33,7 +32,6 @@ public:
     void develop_with_geany(QWidget *widget, QString path);
     void open_qt_dir(QWidget *widget, QString path);
     void open_explorer(QWidget *widget, QString repo);
-    RecursiveFileSystemWatcher &watcher();
     void remove_repo(QWidget *widget, QString repoDir);
     void refresh_repo(QWidget *widget, QString repoDir);
     void open_msys2(QWidget *widget, QString msys2Dir, QString currentDir = "");
@@ -45,7 +43,6 @@ public:
 private:
     QMap<QString, QString> m_env;
     QSplashScreen &m_splash;
-    RecursiveFileSystemWatcher m_watcher;
     JsonSettings m_settings;
     QMutex m_mutex;
     QSplashScreen m_one_moment;

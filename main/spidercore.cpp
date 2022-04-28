@@ -1,8 +1,6 @@
 ﻿#include "spidercore.h"
-#include "jarchiver.h"
 #include "cmdprocess.h"
 #include "common.h"
-#include "jinstaller.h"
 #include "msys2dialog.h"
 #include "programdb.h"
 #include "projectchecker.h"
@@ -276,7 +274,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     m_env["ubuntuTar"] = ubuntuTar;
     qDebug() << ubuntuTar << QFileInfo(ubuntuTar).exists();
 #endif
-    m_watcher.setTopDir(m_env["repoRoot"]);
+    //m_watcher.setTopDir(m_env["repoRoot"]);
 }
 QSplashScreen &SpiderCore::splash()
 {
@@ -557,7 +555,7 @@ void SpiderCore::open_notepad3(QWidget *widget, QString path)
 
 QMessageBox::StandardButton SpiderCore::check_system_qt_project(QWidget *widget, QString proFile)
 {
-    QFileInfo userInfo = proFile + ".user";
+    QFileInfo userInfo = QFileInfo(proFile + ".user");
     if(userInfo.exists())
     {
         QFile userFile(userInfo.absoluteFilePath());
@@ -574,7 +572,7 @@ QMessageBox::StandardButton SpiderCore::check_system_qt_project(QWidget *widget,
             }
         }
     }
-    QFileInfo sysQt = QStringLiteral("C:/Qt/Tools/QtCreator/bin/qtcreator.exe");
+    QFileInfo sysQt = QFileInfo(QStringLiteral("C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
     if(!sysQt.exists()) return QMessageBox::No;
     QMessageBox::StandardButton reply = QMessageBox::question(widget, "確認", QString("%1で開きますか?").arg(sysQt.absoluteFilePath()),
                                         QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
@@ -714,10 +712,6 @@ void SpiderCore::open_explorer(QWidget *widget, QString repoDir)
         }
     });
     sproc->start();
-}
-RecursiveFileSystemWatcher &SpiderCore::watcher()
-{
-    return m_watcher;
 }
 void SpiderCore::remove_repo(QWidget *widget, QString repoDir)
 {

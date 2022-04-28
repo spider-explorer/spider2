@@ -1,5 +1,4 @@
-#include "jarchiver.h"
-#include "common.h"
+﻿#include "common.h"
 #include "jsonserializer.h"
 #include "mainwindow.h"
 #include "spidercore.h"

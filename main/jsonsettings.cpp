@@ -1,5 +1,4 @@
 ﻿#include "jsonsettings.h"
-#include "jinstaller.h"
 #include "variantserializer.h"
 #include "jnetwork.h"
 JsonSettings::JsonSettings(const QString &application) : m_type(JSET_APPL)

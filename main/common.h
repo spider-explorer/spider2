@@ -1,9 +1,10 @@
-#ifndef COMMON_H
+﻿#ifndef COMMON_H
 #define COMMON_H
 #include "binarysettings.h"
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>
+#include <QRegExp> // for Qt6
 static QString var(const QVariant &v, bool pretty = false)
 {
     QJsonDocument jdoc = QJsonDocument::fromVariant(v);

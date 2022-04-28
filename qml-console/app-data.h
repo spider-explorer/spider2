@@ -174,9 +174,9 @@ public:
         QVariantList sl = {"abc", false, "xyz", QVariant()};
         sl.push_back(777);
         QVariant x, y(QString()), z(QString(""));
-        x.convert(QMetaType::Int);
+        //x.convert(QMetaType::Int);
         //sl.push_back(QVariant((const QObject *)nullptr));
-        sl.push_back(x);
+        //sl.push_back(x);
         map["a"] = 11;
         map["b"] = sl;
         return map;

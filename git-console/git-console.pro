@@ -1,12 +1,16 @@
 QT -= gui
 QT += network
+equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
+
+LIBS += -L$$[QT_INSTALL_PREFIX]/lib
+
+gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
 SOURCES += \
         main.cpp

@@ -1,6 +1,7 @@
-#include "searchthread.h"
+﻿#include "searchthread.h"
 #include "recursivefilelister.h"
 #include "spidercore.h"
+#include <QRegExp> // for Qt6
 qint64 SearchThread::count = 0;
 SearchThread::SearchThread(QString topDir, QString rxString, QObject *parent)
     : QThread(parent), m_topDir(topDir), m_rxString(rxString)

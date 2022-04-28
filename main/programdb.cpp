@@ -30,9 +30,9 @@ ProgramDB::ProgramDB()
     }
     m_wt = wt_dst_dir + "/wt.exe";
 #endif
-    m_android_studio = prof + "/scoop/apps/android-studio/current/bin/studio64.exe";
-    m_idea = prof + "/scoop/apps/idea/current/IDE/bin/idea64.exe";
-    m_emacs = prof + "/scoop/apps/emacs/current/bin/emacs.exe";
+    m_android_studio = QFileInfo(prof + "/scoop/apps/android-studio/current/bin/studio64.exe");
+    m_idea = QFileInfo(prof + "/scoop/apps/idea/current/IDE/bin/idea64.exe");
+    m_emacs = QFileInfo(prof + "/scoop/apps/emacs/current/bin/emacs.exe");
     //m_vscode = g_core().env()["vscode"];
     //m_lazarus = g_core().env()["lazarus"];
     //m_codelite = g_core().env()["codelite"];
@@ -46,7 +46,7 @@ QString ProgramDB::which(const QString progName)
     QStringList pathList = path.split(";");
     foreach(QString pathElem, pathList)
     {
-        QFileInfo info = np(pathElem + "/" + progName);
+        QFileInfo info = QFileInfo(np(pathElem + "/" + progName));
         if(info.exists()) return info.absoluteFilePath();
     }
     return "";

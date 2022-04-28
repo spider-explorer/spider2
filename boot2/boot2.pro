@@ -1,15 +1,17 @@
 QT += core gui
+equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 #CONFIG += console
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
-QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+LIBS += -L$$[QT_INSTALL_PREFIX]/lib
+
+gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
 SOURCES += boot.cpp
 

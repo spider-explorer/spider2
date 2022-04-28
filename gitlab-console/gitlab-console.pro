@@ -6,9 +6,12 @@ CONFIG -= app_bundle
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+LIBS += -L$$[QT_INSTALL_PREFIX]/lib
+
 include($$(HOME)/qt/common/common.pri)
 
-QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
 SOURCES += \
         main.cpp

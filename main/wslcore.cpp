@@ -1,10 +1,11 @@
-#include "wslcore.h"
+﻿#include "wslcore.h"
 #include "3rdparty/EasyOLE.h"
 #include "3rdparty/WinReg.hpp"
 #include "3rdparty/prettyprint.hpp"
 #include "wslapi.h"
 #include <QtCore>
 #include <iostream>
+#include <QRegExp> // for Qt6
 WslCore::WslCore()
 {
 }

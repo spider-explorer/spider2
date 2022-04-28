@@ -1,8 +1,9 @@
-#include "repodialog.h"
+﻿#include "repodialog.h"
 #include "ui_repodialog.h"
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>
+#include <QRegExp> // for Qt6
 RepoDialog::RepoDialog(QWidget *parent) : QDialog(parent), ui(new Ui::RepoDialog)
 {
     ui->setupUi(this);

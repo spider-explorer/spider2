@@ -1,6 +1,5 @@
-QT += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets
+equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++17
 
@@ -8,17 +7,18 @@ TEMPLATE  = lib
 #CONFIG += staticlib
 CONFIG += dll
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
+
+LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
 include($$(HOME)/qt/common/common.pri)
 
-QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
 #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
 #LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
-LIBS += $$PWD/efsw/libefsw.a
+#LIBS += $$PWD/efsw/libefsw.a
 
 SPIDER_VERSION = $$system(busybox date +%Y.%m.%d.%H.%M.%S)
 message( $$SPIDER_VERSION )
@@ -45,7 +45,6 @@ SOURCES += \
     qsettings_binary.cpp \
     qsettings_json.cpp \
     recursivefilelister.cpp \
-    recursivefilesystemwatcher.cpp \
     repodialog.cpp \
     repositorydirdialog.cpp \
     repositorydirview.cpp \
@@ -84,7 +83,6 @@ HEADERS += \
     qsettings_binary.h \
     qsettings_json.h \
     recursivefilelister.h \
-    recursivefilesystemwatcher.h \
     repodialog.h \
     repositorydirdialog.h \
     repositorydirview.h \

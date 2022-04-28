@@ -1,7 +1,8 @@
-#include "utf8LogHandler.h"
+﻿#include "utf8LogHandler.h"
 #include <QtCore>
 #include <QtNetwork>
 #include <iostream>
+#include <QRegExp>
 static QMap<QString, QString> g_env;
 QJsonDocument ignoredList(QString cwd)
 {
@@ -23,19 +24,22 @@ QJsonDocument ignoredList(QString cwd)
     // qDebug() << output;
     // qDebug().noquote() << output;
     QStringList list = (output.trimmed()).split("\n");
-    list = list.filter(QRegExp("^!!", Qt::CaseSensitive));
+    //list = list.filter(QRegExp("^!!", Qt::CaseSensitive));
+    list = list.filter(QRegularExpression("^!!"));
     // qDebug() << list;
     QStringList result;
     foreach (QString x, list)
     {
-        x = x.replace(QRegExp("^!! "), "");
+        //x = x.replace(QRegExp("^!! "), "");
+        x = x.replace(QRegularExpression("^!! "), "");
         if (x.startsWith("../"))
             continue;
         if (!cwd.isEmpty())
         {
             x = cwd + "/" + x;
         }
-        x = x.replace(QRegExp("/$"), "");
+        //x = x.replace(QRegExp("/$"), "");
+        x = x.replace(QRegularExpression("/$"), "");
         result.append(x);
     }
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(result);
