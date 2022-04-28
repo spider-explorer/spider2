@@ -1,0 +1,29 @@
+{
+    "version": "2022.04.28.02.17.00",
+    "description": "",
+    "homepage": "",
+    "license": "MIT",
+    "depends": [
+    ],
+    "url": [
+        "https://github.com/spider-explorer/spider/releases/download/v2022.04.28.02.17.00/spider-v2022.04.28.02.17.00.zip"
+    ],
+    "hash": [
+        "18bdadf1a8b5c687ae04ead954843de65a5ecfb97ba816ecc759c323c57fe561"
+    ],
+    "bin": [
+        [
+            "boot-x86_64-static.exe",
+            "spider",
+            "--dumy"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "boot-x86_64-static.exe",
+            "Spider",
+            "--dummy"
+        ]
+    ],
+    "persist": "temp"
+}
