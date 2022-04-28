@@ -31,6 +31,7 @@ scoop install git
 scoop bucket add main
 scoop bucket add extras
 json=`cat ./investigate.json`
+processApp $cwd sliksvn "/bin"
 processApp $cwd gh "/bin"
 processApp $cwd googlechrome "."
 processApp $cwd wixtoolset "."

@@ -43,6 +43,12 @@
       "path": "/program",
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/office_x64/office_x64-7.3.2.7z"
     },
+    "sliksvn": {
+      "version": "1.14.2",
+      "ext": "7z",
+      "path": "/bin",
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/sliksvn/sliksvn-1.14.2.7z"
+    },
     "gh": {
       "version": "2.9.0",
       "ext": "7z",
@@ -176,10 +182,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/wget/wget-1.21.3.7z"
     },
     "curl": {
-      "version": "7.82.0_4",
+      "version": "7.83.0",
       "ext": "7z",
       "path": "/bin",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/curl/curl-7.82.0_4.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/curl/curl-7.83.0.7z"
     },
     "qownnotes": {
       "version": "22.4.2",
