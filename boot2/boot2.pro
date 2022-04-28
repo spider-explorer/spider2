@@ -38,4 +38,5 @@ DEFINES += QAPPLICATION_CLASS=QApplication
 include($$(HOME)/qt/common/common.pri)
 
 RESOURCES += \
+    ../lib/lib.qrc \
     boot.qrc

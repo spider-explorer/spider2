@@ -1,4 +1,4 @@
-﻿#include "jinstaller.h"
+﻿//#include "jinstaller.h"
 #include <QApplication>
 #include <QtCore>
 #include <QtGui>
@@ -6,6 +6,42 @@
 #include <singleapplication.h>
 #include "jnetwork.h"
 #include "junctionmanager.h"
+
+#include "MemoryModule.h"
+#include "../lib/lib.h"
+
+
+void myCallback(void *data, int64_t extractSizeTotal)
+{
+    QSplashScreen *splash = (QSplashScreen *)data;
+    QLocale locale;
+    splash->showMessage(
+        QString("Spider本体を展開中...%1").arg(locale.formattedDataSize(extractSizeTotal)),
+        Qt::AlignLeft, Qt::white);
+}
+
+static bool extractArchive(const char *archivePath,
+                           const char *outputDir,
+                           void *data,
+                           ArchiveProgressCallback callback)
+{
+    static HMEMORYMODULE h = nullptr;
+    if(!h)
+    {
+        QFile dll(":/lib-x86_64-static.dll");
+        if(dll.open(QIODevice::ReadOnly))
+        {
+            qDebug() << "dll opened.";
+            QByteArray bytes = dll.readAll();
+            HMEMORYMODULE h = MemoryLoadLibrary(bytes.data(), bytes.size());
+            qDebug() << h;
+        }
+    }
+    if(!h) return false;
+    proto_extract_archive extract_archive = (proto_extract_archive)MemoryGetProcAddress(h, "extract_archive");
+    if(!extract_archive) return false;
+    return extract_archive(archivePath, outputDir, data, callback);
+}
 static QString prepareMain(QSplashScreen &splash)
 {
     JNetworkManager nm;
@@ -51,12 +87,19 @@ static QString prepareMain(QSplashScreen &splash)
                          QString("/.spider-explorer/.install/current").arg(version);
     if (!QFileInfo(installDir).exists())
     {
+#if 0x0
         qDebug() << extractZip(dlPath, installDir, [&splash, &locale](qint64 extractSizeTotal)
         {
             splash.showMessage(
                 QString("Spider本体を展開中...%1").arg(locale.formattedDataSize(extractSizeTotal)),
                 Qt::AlignLeft, Qt::white);
         });
+#else
+        qDebug() << extractArchive(dlPath.toStdString().c_str(),
+                                   installDir.toStdString().c_str(),
+                                   (void *)&splash,
+                                   myCallback);
+#endif
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);
     }
