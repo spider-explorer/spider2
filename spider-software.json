@@ -43,6 +43,12 @@
       "path": "/program",
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/office_x64/office_x64-7.3.2.7z"
     },
+    "nu": {
+      "version": "0.61.0",
+      "ext": "7z",
+      "path": ".",
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/nu/nu-0.61.0.7z"
+    },
     "sliksvn": {
       "version": "1.14.2",
       "ext": "7z",
