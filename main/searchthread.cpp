@@ -30,7 +30,7 @@ void SearchThread::run()
                 }
             }
             QString fileName = QFileInfo(path).fileName();
-            return (rx.match(fileName).hasPartialMatch());
+            return (rx.match(fileName).hasMatch());
         });
         emit searchFinished(m_id, m_topDir, m_rxString, pathList);
     }
