@@ -15,4 +15,9 @@ def main [
   } else {
     echo "<not full>"
   }
+  let cwd = (^pwd)
+  echo $cwd
+  ^killall boot2-x86_64-static
+  ^sleep 3
+
 }
