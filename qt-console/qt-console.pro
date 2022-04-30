@@ -2,6 +2,7 @@ QT += core
 
 CONFIG += c++17
 CONFIG += console
+CONFIG += force_debug_info
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
@@ -28,7 +29,7 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
-gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+#gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 
 RESOURCES += \
     qt-console.qrc

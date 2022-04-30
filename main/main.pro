@@ -2,6 +2,7 @@ QT += core gui widgets
 equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++17
+CONFIG += force_debug_info
 
 TEMPLATE  = lib
 #CONFIG += staticlib

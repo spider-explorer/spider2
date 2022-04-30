@@ -1,10 +1,9 @@
-QT += core gui
+QT += core gui widgets
 equals(QT_MAJOR_VERSION, 6):QT += core5compat
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 #CONFIG += console
+CONFIG += force_debug_info
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 

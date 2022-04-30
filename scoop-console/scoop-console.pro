@@ -1,7 +1,8 @@
 QT -= gui
 
-CONFIG += c++17 console
-CONFIG -= app_bundle
+CONFIG += c++17
+CONFIG += console
+#CONFIG += force_debug_info
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
@@ -31,6 +32,6 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
-gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+#gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 
 #include($$(HOME)/qt/common/common.pri)

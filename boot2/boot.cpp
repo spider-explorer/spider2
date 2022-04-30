@@ -59,7 +59,7 @@ static QString prepareMain(QSplashScreen &splash)
     }
     if(!QFileInfo(dlPath).exists())
     {
-        qDebug() << u8"確認", "本体のダウンロードが失敗しました";
+        qDebug() << u8"本体のダウンロードが失敗しました";
         QMessageBox::information(nullptr, "確認", "本体のダウンロードが失敗しました");
     }
     QString installDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +

@@ -3,6 +3,7 @@ equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++17
 CONFIG += console
+CONFIG += force_debug_info
 
 #TEMPLATE = lib
 #CONFIG += staticlib
@@ -33,7 +34,7 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
-gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+#gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 
 #include($$(HOME)/include/include.pri)
 #include($$(HOME)/qt/common/common.pri)
