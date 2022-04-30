@@ -28,6 +28,8 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
+gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+
 RESOURCES += \
     qt-console.qrc
 

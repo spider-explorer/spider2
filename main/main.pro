@@ -126,6 +126,8 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
+gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+
 # https://www.flaticon.com/free-icon/tarantula_2959301?term=spider&page=1&position=7&page=1&position=7&related_id=2959301
 # https://www.hipdf.com/jp/png-to-ico
 RC_ICONS = tarantula.ico

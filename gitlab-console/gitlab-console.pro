@@ -32,4 +32,6 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
+gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+
 #include($$(HOME)/qt/common/common.pri)
