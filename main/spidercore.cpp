@@ -12,6 +12,7 @@
 
 #include "MemoryModule.h"
 #include "archive_api.h"
+#include "debug_line.h"
 
 static SpiderCore *s_core = nullptr;
 static JsonSettings *s_settings = nullptr;
@@ -151,14 +152,14 @@ QString SpiderCore::prepareWsl(QString distroName)
 #endif
 SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_splash(splash), m_settings("spider")
 {
-    qDebug() << "SpiderCore::SpiderCore(1)";
+    qdebug_line1("SpiderCore::SpiderCore(1)");
     s_core = this;
     s_settings = &this->m_settings;
     s_mutex = &this->m_mutex;
     //
     QPixmap pixmap(":/one-moment-please.png");
     m_one_moment.setPixmap(pixmap);
-    qDebug() << "SpiderCore::SpiderCore(2)";
+    qdebug_line1("SpiderCore::SpiderCore(2)");
     //
     QFileInfo mainDll(mainDllPath);
     m_env["dir"] = mainDll.absolutePath();
@@ -168,7 +169,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     m_env["docs"] = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     m_env["repoRoot"] = m_env["docs"] + "/.repo";
     m_env["msys2"] = m_env["prof"] + "/.software/msys2";
-    qDebug() << "SpiderCore::SpiderCore(3)";
+    qdebug_line1("SpiderCore::SpiderCore(3)");
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     m_env["path"] = env.value("PATH");
     //
@@ -181,27 +182,28 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     m_env["path"] = np(m_env["dir"] + "/cmd") + ";" + m_env["path"];
     //
     m_env["path"] = np(m_env["dir"] + "/spiderbrowser") + ";" + m_env["path"];
-    qDebug() << "SpiderCore::SpiderCore(4)";
+    qdebug_line1("SpiderCore::SpiderCore(4)");
     //
     QFile file(":/archive-api-x86_64-static.dll");
     if (file.open(QIODevice::ReadOnly))
     {
         QByteArray bytes = file.readAll();
-        auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
-        proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
-        proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
-        int port = start(0);
-        ArchiveApiClient cli(port);
+        //auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
+        //proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
+        //proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
+        //int port = start(0);
+        ArchiveApiClient cli(bytes.data(), bytes.size());
         //
         QUrl softwareUrl("https://gitlab.com/spider-explorer/spider-software/-/raw/main/spider-software.json");
         JsonSettings softwareSettings(softwareUrl);
-        qDebug() << "SpiderCore::SpiderCore(5)";
+        qdebug_line1("SpiderCore::SpiderCore(5)");
         QStringList appList = softwareSettings.value("software").toMap().keys();
         for(int i=0; i<appList.size(); i++)
         {
             if(appList[i]=="git") continue;
             prepareProgram(softwareSettings, appList[i], cli);
         }
+        qdebug_line();
         //
         ////QString sevenzip_dir = prepareProgram(softwareSettings, "7zip");
         //
@@ -222,7 +224,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
             gitProc.start();
             gitProc.waitForFinished();
         }
-        stop(port);
+        //stop(port);
     }
 
 #if 0x0

@@ -6,6 +6,7 @@
 #include "variantserializer.h"
 #include <QApplication>
 #include <QtNetwork>
+#include "utf8LogHandler.h"
 class SpiderApplication : public QApplication
 {
     Q_OBJECT
@@ -23,6 +24,7 @@ signals:
 extern "C" __declspec(dllexport) void entry1(const char *main_dll_path, int argc, char **argv)
 {
     SpiderApplication app(argc, argv);
+    qInstallMessageHandler(utf8LogHandler);
     qDebug() << "entry1() called." << main_dll_path;
     auto font = app.font();
     qDebug() << font.pointSizeF();

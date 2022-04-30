@@ -4,11 +4,13 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <singleapplication.h>
+#include "debug_line.h"
 #include "jnetwork.h"
 #include "junctionmanager.h"
 
 #include "MemoryModule.h"
 #include "archive_api.h"
+#include "utf8LogHandler.h"
 
 void myCallback(void *data, int64_t extractSizeTotal)
 {
@@ -104,6 +106,7 @@ int main(int argc, char *argv[])
 {
     qDebug() << "main(begin)";
     SingleApplication app(argc, argv, true);
+    qInstallMessageHandler(utf8LogHandler);
     if (app.isSecondary())
     {
         qDebug() << "[boot] (app.isSecondary())";
@@ -120,16 +123,22 @@ int main(int argc, char *argv[])
         QSplashScreen splash(QPixmap(":/splash.png"));
         splash.show();
         QFile file(":/archive-api-x86_64-static.dll");
+        qdebug_line();
         if (file.open(QIODevice::ReadOnly))
         {
             QByteArray bytes = file.readAll();
-            auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
-            proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
-            proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
-            int port = start(0);
-            ArchiveApiClient cli(port);
+            //auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
+            //proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
+            //proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
+            //int port = start(0);
+            //ArchiveApiClient cli(port);
+            ArchiveApiClient cli(bytes.data(), bytes.size());
             mainDll = prepareMain(splash, cli);
-            stop(port);
+            //stop(port);
+        }
+        else
+        {
+            throw std::logic_error("Could not open: " + file.fileName().toStdString());
         }
         splash.finish(nullptr);
     }
