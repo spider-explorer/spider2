@@ -34,6 +34,9 @@ contains(QMAKE_QMAKE, .*static.*) {
     message( "[SHARED BUILD]" )
 }
 
+gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+
+#include($$(HOME)/include/include.pri)
 #include($$(HOME)/qt/common/common.pri)
 #include($$(HOME)/qt/common/boost/boost.pri)
 #include($$(HOME)/qt/common/ZipLib/ZipLib.pri)

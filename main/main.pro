@@ -11,8 +11,6 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
-include($$(HOME)/qt/common/common.pri)
-
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
@@ -136,8 +134,7 @@ RESOURCES += \
     spider2.qrc \
     vscode.qrc
 
+include($$(HOME)/include/include.pri)
+include($$(HOME)/qt/common/common.pri)
 include($$PWD/../lib/lib.pri)
-
-#include(SingleApplication/singleapplication.pri)
-#DEFINES += QAPPLICATION_CLASS=QApplication
 

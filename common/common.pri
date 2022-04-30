@@ -4,12 +4,12 @@ QT += core gui widgets network quick
 
 HEADERS += \
     $$PWD/JSValueToText.h \
-    $$PWD/MemoryModule.h \
     $$PWD/jchecksum.h \
     $$PWD/jlistwidget.h \
     $$PWD/jnetwork.h \
     $$PWD/junctionmanager.h \
     $$PWD/pcloudapi.h \
+    $$PWD/qdebug.h \
     $$PWD/utf8LogHandler.h \
     $$PWD/variantserializer.h \
     $$PWD/varianttojson.h \
@@ -34,7 +34,6 @@ HEADERS += \
 #gcc:HEADERS += $$PWD/jarchiver.h $$PWD/jinstaller.h
 
 SOURCES += \
-    $$PWD/MemoryModule.c \
     $$PWD/jchecksum.cpp \
     $$PWD/jlistwidget.cpp \
     $$PWD/jnetwork.cpp \

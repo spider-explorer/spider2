@@ -37,6 +37,7 @@ RC_ICONS = tarantula.ico
 include(SingleApplication/singleapplication.pri)
 DEFINES += QAPPLICATION_CLASS=QApplication
 
+include($$(HOME)/include/include.pri)
 include($$(HOME)/qt/common/common.pri)
 
 include($$PWD/../lib/lib.pri)
