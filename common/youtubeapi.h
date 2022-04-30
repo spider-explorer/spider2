@@ -1,6 +1,8 @@
 ﻿#ifndef YOUTUBEAPI_H
 #define YOUTUBEAPI_H
+
 #include <QtCore>
+
 class YoutubeAPI
 {
 public:
@@ -10,4 +12,5 @@ private:
     QString m_key;
     QString key();
 };
+
 #endif // YOUTUBEAPI_H

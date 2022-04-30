@@ -10,7 +10,8 @@
 #include "jnetwork.h"
 #include "junctionmanager.h"
 
-#include "lib.h"
+#include "MemoryModule.h"
+#include "archive_api.h"
 
 static SpiderCore *s_core = nullptr;
 static JsonSettings *s_settings = nullptr;
@@ -36,7 +37,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
         Qt::AlignLeft, Qt::white);
 }
 
-QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName)
+QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName, ArchiveApiClient &cli)
 {
     JNetworkManager nm;
     QString urlString = softwareSettings.value(QString("software/%1/url").arg(progName)).toString();
@@ -90,10 +91,19 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         //    QString version;
         //};
         DecompressInfo dinfo { &m_splash, &locale, progName, version };
-        qDebug() << extractArchive(dlPath.toStdString().c_str(),
-                                   installDir.toStdString().c_str(),
-                                   (void *)&dinfo,
-                                   myCallback);
+        std::size_t archive_id= cli.extract_archive(dlPath.toStdString(),
+                                                    installDir.toStdString());
+        while(true)
+        {
+            std::int64_t progress = cli.extract_progress(archive_id);
+            m_splash.showMessage(
+                QString("%1 を更新中(%2)...インストール中: %3")
+                .arg(progName)
+                .arg(version)
+                .arg(locale.formattedDataSize(progress)),
+                Qt::AlignLeft, Qt::white);
+            if (progress < 0) break;
+        }
 #endif
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);
@@ -173,36 +183,48 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     m_env["path"] = np(m_env["dir"] + "/spiderbrowser") + ";" + m_env["path"];
     qDebug() << "SpiderCore::SpiderCore(4)";
     //
-    QUrl softwareUrl("https://gitlab.com/spider-explorer/spider-software/-/raw/main/spider-software.json");
-    JsonSettings softwareSettings(softwareUrl);
-    qDebug() << "SpiderCore::SpiderCore(5)";
-    QStringList appList = softwareSettings.value("software").toMap().keys();
-    for(int i=0; i<appList.size(); i++)
+    QFile file(":/archive-api-x86_64-static.dll");
+    if (file.open(QIODevice::ReadOnly))
     {
-        if(appList[i]=="git") continue;
-        prepareProgram(softwareSettings, appList[i]);
+        QByteArray bytes = file.readAll();
+        auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
+        proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
+        proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
+        int port = start(0);
+        ArchiveApiClient cli(port);
+        //
+        QUrl softwareUrl("https://gitlab.com/spider-explorer/spider-software/-/raw/main/spider-software.json");
+        JsonSettings softwareSettings(softwareUrl);
+        qDebug() << "SpiderCore::SpiderCore(5)";
+        QStringList appList = softwareSettings.value("software").toMap().keys();
+        for(int i=0; i<appList.size(); i++)
+        {
+            if(appList[i]=="git") continue;
+            prepareProgram(softwareSettings, appList[i], cli);
+        }
+        //
+        ////QString sevenzip_dir = prepareProgram(softwareSettings, "7zip");
+        //
+        QString git_dir = prepareProgram(softwareSettings, "git", cli);
+        {
+            QProcess gitProc;
+            gitProc.setProgram(git_dir + "/bin/git.exe");
+            gitProc.setArguments(QStringList() << "config"
+                                 << "--system"
+                                 << "core.autocrlf"
+                                 << "input");
+            gitProc.start();
+            gitProc.waitForFinished();
+            gitProc.setArguments(QStringList() << "config"
+                                 << "--system"
+                                 << "credential.helper"
+                                 << "manager-core");
+            gitProc.start();
+            gitProc.waitForFinished();
+        }
+        stop(port);
     }
 
-    //
-    ////QString sevenzip_dir = prepareProgram(softwareSettings, "7zip");
-    //
-    QString git_dir = prepareProgram(softwareSettings, "git");
-    {
-        QProcess gitProc;
-        gitProc.setProgram(git_dir + "/bin/git.exe");
-        gitProc.setArguments(QStringList() << "config"
-                             << "--system"
-                             << "core.autocrlf"
-                             << "input");
-        gitProc.start();
-        gitProc.waitForFinished();
-        gitProc.setArguments(QStringList() << "config"
-                             << "--system"
-                             << "credential.helper"
-                             << "manager-core");
-        gitProc.start();
-        gitProc.waitForFinished();
-    }
 #if 0x0
     //
     QString wix_dir = prepareProgram(softwareSettings, "wixtoolset");

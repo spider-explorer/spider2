@@ -1,7 +1,9 @@
 #ifndef JSVALUETOTEXT_H
 #define JSVALUETOTEXT_H
+
 #include <QtCore>
 #include <QtQml>
+
 static inline QString escapeChar(const QChar &c)
 {
     // https://en.cppreference.com/w/cpp/language/escape
@@ -121,4 +123,5 @@ static inline QString JSValueToText(const QJSValue &x)
         return x.toString();
     }
 }
+
 #endif // JSVALUETOTEXT_H

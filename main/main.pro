@@ -139,5 +139,7 @@ RESOURCES += \
 
 include($$(HOME)/include/include.pri)
 include($$(HOME)/qt/common/common.pri)
-include($$PWD/../lib/lib.pri)
+
+#include($$PWD/../lib/lib.pri)
+include($$PWD/../archive-api/archive-api.pri)
 

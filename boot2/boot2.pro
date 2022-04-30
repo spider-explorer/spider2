@@ -41,7 +41,8 @@ DEFINES += QAPPLICATION_CLASS=QApplication
 include($$(HOME)/include/include.pri)
 include($$(HOME)/qt/common/common.pri)
 
-include($$PWD/../lib/lib.pri)
+#include($$PWD/../lib/lib.pri)
+include($$PWD/../archive-api/archive-api.pri)
 
 RESOURCES += \
     boot.qrc

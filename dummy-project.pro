@@ -1,16 +1,16 @@
 QT += core gui widgets
+equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++17
 CONFIG += console
+CONFIG += force_debug_info
 
 #TEMPLATE = lib
 #CONFIG += staticlib
 #CONFIG += dll
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# disables all the APIs deprecated before Qt 6.0.0
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
+DEFINES += DEBUG_LINE
 
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 
@@ -20,13 +20,14 @@ SOURCES += dummy-project.cpp
 
 INCLUDEPATH += $$PWD
 INCLUDEPATH += $$(HOME)/include
+#QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CXXFLAGS_DEBUG
+LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
 DESTDIR = $$PWD
 
 TARGET = $${TARGET}-$${QMAKE_HOST.arch}
-
 #message($$QMAKE_QMAKE)
-contains(QMAKE_QMAKE, .*\-static\/.*) {
+contains(QMAKE_QMAKE, .*static.*) {
     message( "[STATIC BUILD]" )
     DEFINES += QT_STATIC_BUILD
     TARGET = $${TARGET}-static
@@ -34,5 +35,8 @@ contains(QMAKE_QMAKE, .*\-static\/.*) {
     message( "[SHARED BUILD]" )
 }
 
+#gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
+
+#include($$(HOME)/include/include.pri)
 #include($$(HOME)/qt/common/common.pri)
 #include($$(HOME)/qt/common/boost/boost.pri)

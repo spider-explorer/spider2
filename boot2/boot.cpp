@@ -8,7 +8,7 @@
 #include "junctionmanager.h"
 
 #include "MemoryModule.h"
-#include "lib.h"
+#include "archive_api.h"
 
 void myCallback(void *data, int64_t extractSizeTotal)
 {
@@ -20,7 +20,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
         Qt::AlignLeft, Qt::white);
 }
 
-static QString prepareMain(QSplashScreen &splash)
+static QString prepareMain(QSplashScreen &splash, ArchiveApiClient &cli)
 {
     JNetworkManager nm;
     QLocale locale;
@@ -78,11 +78,17 @@ static QString prepareMain(QSplashScreen &splash)
 #else
         qDebug() << "dlPath:" << dlPath;
         qDebug() << "installDir:" << installDir;
-        qDebug() << "boot:extractArchive()" << extractArchive(
-                        dlPath.toStdString().c_str(),
-                        installDir.toStdString().c_str(),
-                        (void *)&splash,
-                        myCallback);
+        std::size_t archive_id = cli.extract_archive(
+                        dlPath.toStdString(),
+                        installDir.toStdString());
+        while(true)
+        {
+            std::int64_t progress = cli.extract_progress(archive_id);
+            splash.showMessage(
+                QString("Spider本体を展開中...%1").arg(locale.formattedDataSize(progress)),
+                Qt::AlignLeft, Qt::white);
+            if (progress < 0) break;
+        }
 #endif
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);
@@ -113,7 +119,18 @@ int main(int argc, char *argv[])
     {
         QSplashScreen splash(QPixmap(":/splash.png"));
         splash.show();
-        mainDll = prepareMain(splash);
+        QFile file(":/archive-api-x86_64-static.dll");
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QByteArray bytes = file.readAll();
+            auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
+            proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
+            proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
+            int port = start(0);
+            ArchiveApiClient cli(port);
+            mainDll = prepareMain(splash, cli);
+            stop(port);
+        }
         splash.finish(nullptr);
     }
     // exit(0);
