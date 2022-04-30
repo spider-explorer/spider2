@@ -18,13 +18,12 @@ SOURCES += %1.cpp
 
 INCLUDEPATH += $$PWD
 INCLUDEPATH += $$(HOME)/include
-
+#QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CXXFLAGS_DEBUG
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
 DESTDIR = $$PWD
 
 TARGET = $${TARGET}-$${QMAKE_HOST.arch}
-
 #message($$QMAKE_QMAKE)
 contains(QMAKE_QMAKE, .*static.*) {
     message( "[STATIC BUILD]" )
@@ -39,4 +38,3 @@ gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 #include($$(HOME)/include/include.pri)
 #include($$(HOME)/qt/common/common.pri)
 #include($$(HOME)/qt/common/boost/boost.pri)
-#include($$(HOME)/qt/common/ZipLib/ZipLib.pri)
