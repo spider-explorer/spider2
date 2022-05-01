@@ -13,11 +13,13 @@ DEFINES += DEBUG_LINE
 
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
+PRECOMPILED_HEADER = stable.h
+
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
 #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
-#LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
+LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
 #LIBS += $$PWD/efsw/libefsw.a
 
 SPIDER_VERSION = $$system(busybox date +%Y.%m.%d.%H.%M.%S)
@@ -94,6 +96,7 @@ HEADERS += \
     spiderform.h \
     spidermain.h \
     spiderprocess.h \
+    stable.h \
     test01dialog.h \
     windowsutils.h \
     wslcore.h \

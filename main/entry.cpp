@@ -1,4 +1,5 @@
-﻿#include "common.h"
+﻿#include <winSock2.h>
+#include "common.h"
 #include "jsonserializer.h"
 #include "mainwindow.h"
 #include "spidercore.h"

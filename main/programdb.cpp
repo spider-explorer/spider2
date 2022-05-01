@@ -1,4 +1,5 @@
-﻿#include "programdb.h"
+﻿#include <winsock2.h>
+#include "programdb.h"
 #include "spidercore.h"
 #include "common.h"
 static void copyPath(QString src, QString dst)

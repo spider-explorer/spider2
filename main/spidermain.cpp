@@ -1,4 +1,5 @@
-﻿#include "spidermain.h"
+﻿#include <winsock2.h>
+#include "spidermain.h"
 #include "cmdprocess.h"
 #include "datetimemanager.h"
 #include "envvardialog.h"

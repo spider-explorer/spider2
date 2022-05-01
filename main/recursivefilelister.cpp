@@ -1,3 +1,4 @@
+﻿#include <winsock2.h>
 #include "recursivefilelister.h"
 #include "spiderprocess.h"
 RecursiveFileLister::RecursiveFileLister()

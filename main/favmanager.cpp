@@ -1,3 +1,4 @@
+﻿#include <winsock2.h>
 #include "favmanager.h"
 #include "datetimemanager.h"
 #include "spidercore.h"

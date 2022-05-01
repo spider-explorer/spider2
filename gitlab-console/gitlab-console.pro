@@ -8,8 +8,6 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
-include($$(HOME)/qt/common/common.pri)
-
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
@@ -34,4 +32,5 @@ contains(QMAKE_QMAKE, .*static.*) {
 
 gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 
-#include($$(HOME)/qt/common/common.pri)
+include($$(HOME)/include/include.pri)
+include($$(HOME)/qt/common/common.pri)

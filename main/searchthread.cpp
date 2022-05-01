@@ -1,4 +1,5 @@
-﻿#include "searchthread.h"
+﻿#include <winsock2.h>
+#include "searchthread.h"
 #include "recursivefilelister.h"
 #include "spidercore.h"
 qint64 SearchThread::count = 0;

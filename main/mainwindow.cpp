@@ -1,4 +1,5 @@
-﻿#include "mainwindow.h"
+﻿#include <winsock2.h>
+#include "mainwindow.h"
 #include "cmdprocess.h"
 #include "common.h"
 #include "envvardialog.h"

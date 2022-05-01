@@ -1,3 +1,4 @@
+﻿#include <winsock2.h>
 #include "spiderform.h"
 #include "cmdprocess.h"
 #include "common.h"

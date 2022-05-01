@@ -1,4 +1,5 @@
-﻿#include "repositorydirdialog.h"
+﻿#include <winsock2.h>
+#include "repositorydirdialog.h"
 #include "ui_repositorydirdialog.h"
 #include "programdb.h"
 RepositoryDirDialog::RepositoryDirDialog(QString rootPath, QWidget *parent)

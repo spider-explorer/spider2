@@ -1,4 +1,5 @@
-﻿#include "explorerform.h"
+﻿#include <winsock2.h>
+#include "explorerform.h"
 #include "common.h"
 #include "favmanager.h"
 #include "recursivefilelister.h"

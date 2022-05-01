@@ -1,3 +1,4 @@
+﻿#include <winsock2.h>
 #include "spiderprocess.h"
 #include "windowsutils.h"
 SpiderProcess::SpiderProcess(SpiderProcCallback callback)

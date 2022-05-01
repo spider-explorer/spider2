@@ -1,4 +1,5 @@
-﻿#include "spidercore.h"
+﻿#include <winsock2.h>
+#include "spidercore.h"
 #include "cmdprocess.h"
 #include "common.h"
 #include "msys2dialog.h"

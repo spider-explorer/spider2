@@ -1,4 +1,5 @@
-﻿//#include "jinstaller.h"
+﻿#include <winSock2.h>
+//#include "jinstaller.h"
 #include <QApplication>
 #include <QtCore>
 #include <QtGui>
@@ -8,7 +9,7 @@
 #include "jnetwork.h"
 #include "junctionmanager.h"
 
-#include "MemoryModule.h"
+//#include "MemoryModule.h"
 #include "archive_api.h"
 #include "utf8LogHandler.h"
 
@@ -99,7 +100,11 @@ static QString prepareMain(QSplashScreen &splash, ArchiveApiClient &cli)
     {
         JunctionManager().create(junctionDir, installDir);
     }
+#ifdef QT_STATIC_BUILD
     QString mainDll = junctionDir + "/main-x86_64-static.dll";
+#else
+    QString mainDll = junctionDir + "/main-x86_64.dll";
+#endif
     return mainDll;
 }
 int main(int argc, char *argv[])
