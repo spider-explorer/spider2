@@ -5,6 +5,7 @@ CONFIG += c++17 console
 CONFIG += force_debug_info
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += _WINSOCKAPI_
 
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 

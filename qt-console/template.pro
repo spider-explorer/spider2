@@ -10,6 +10,7 @@ CONFIG += force_debug_info
 #CONFIG += dll
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
+DEFINES += _WINSOCKAPI_
 DEFINES += DEBUG_LINE
 
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
