@@ -1,6 +1,9 @@
 QT += core gui widgets network quick
 
-#CONFIG += c++17
+DEFINES += CPPHTTPLIB_OPENSSL_SUPPORT
+msvc:INCLUDEPATH += $$(HOME)/conan/binaries/include
+msvc:LIBS += -L$$(HOME)/conan/binaries/lib libcrypto.lib libssl.lib
+gcc:LIBS += -lssl -lcrypto
 
 HEADERS += \
     $$PWD/JSValueToText.h \
