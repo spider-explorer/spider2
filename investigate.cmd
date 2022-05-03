@@ -1,1 +1,0 @@
-busybox bash -c "./investigate.sh %*"

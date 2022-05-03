@@ -43,6 +43,12 @@
       "path": "/program",
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/office_x64/office_x64-7.3.2.7z"
     },
+    "llvm": {
+      "version": "14.0.3",
+      "ext": "7z",
+      "path": "/bin",
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/llvm/llvm-14.0.3.7z"
+    },
     "nu": {
       "version": "0.61.0",
       "ext": "7z",
@@ -86,10 +92,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/geany/geany-1.38.7z"
     },
     "deno": {
-      "version": "1.21.0",
+      "version": "1.21.1",
       "ext": "7z",
       "path": ".",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/deno/deno-1.21.0.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/deno/deno-1.21.1.7z"
     },
     "vscode": {
       "version": "1.66.2",
@@ -140,10 +146,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/git/git-2.36.0.windows.1.7z"
     },
     "nyagos": {
-      "version": "4.4.11_0",
+      "version": "4.4.12_0",
       "ext": "7z",
       "path": ".",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/nyagos/nyagos-4.4.11_0.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/nyagos/nyagos-4.4.12_0.7z"
     },
     "jq": {
       "version": "1.6",

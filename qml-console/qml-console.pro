@@ -15,7 +15,8 @@ msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 SOURCES += \
         main.cpp
 
-RESOURCES +=
+RESOURCES += \
+    qml-console.qrc
 
 HEADERS += \
     AJSEngine.h \

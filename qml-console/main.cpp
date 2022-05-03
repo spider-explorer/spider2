@@ -25,13 +25,35 @@ int main(int argc, char *argv[])
     ApplicationFactory fac(&engine);
     engine.globalObject().setProperty("glob2", engine.newQObject(&fac));
 
+    QFile esprima(":/esprima.js");
+    if (!esprima.open(QIODevice::ReadOnly)) throw std::logic_error(":/esprima.js");
+    engine.evaluate(QString::fromUtf8(esprima.readAll()));
+
+    QFile babel(":/babel.js");
+    if (!babel.open(QIODevice::ReadOnly)) throw std::logic_error(":/babel.js");
+    //engine.evaluate(QString::fromUtf8(babel.readAll()));
+
     if(app.arguments().size() < 2)
     {
-        //qDebug() << "QML path not specified. exiting.";
-        engine.evaluate(R"***(
+        qDebug() << "QML path not specified.";
+        QJSValue ast = engine.evaluate(R"***(
     var ad = glob2.newApplicationData();
     console.log(ad.getTextFromCpp());
+    /*
+    var bast = Babel.parse('answer = 42',
+    {
+      sourceType: "module",
+      plugins: ["typescript"],
+    });
+    */
+    var ast = esprima.parseScript('answer = 42');
+    glob2.log(ast);
+    console.log(JSON.stringify(ast, null, 2));
+    ast;
 )***");
+        qDebug() << ast.toVariant();
+        QJsonDocument jsonDoc = QJsonDocument::fromVariant(ast.toVariant());
+        qDebug().noquote() << jsonDoc.toJson(QJsonDocument::Indented);
         QJSValue error = engine.newErrorObject(QJSValue::GenericError, "マイエラー");
         QVariant errorV = error.toVariant();
         qDebug() << errorV;
