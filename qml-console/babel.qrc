@@ -1,5 +1,5 @@
-﻿<RCC>
+<RCC>
     <qresource prefix="/">
-        <file>esprima.js</file>
+        <file>babel.js</file>
     </qresource>
 </RCC>

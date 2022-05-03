@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
     if (!esprima.open(QIODevice::ReadOnly)) throw std::logic_error(":/esprima.js");
     engine.evaluate(QString::fromUtf8(esprima.readAll()));
 
-    QFile babel(":/babel.js");
-    if (!babel.open(QIODevice::ReadOnly)) throw std::logic_error(":/babel.js");
+    //QFile babel(":/babel.js");
+    //if (!babel.open(QIODevice::ReadOnly)) throw std::logic_error(":/babel.js");
     //engine.evaluate(QString::fromUtf8(babel.readAll()));
 
     if(app.arguments().size() < 2)
