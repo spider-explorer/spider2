@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
     {
         QSplashScreen splash(QPixmap(":/splash.png"));
         splash.show();
+#if 0x0
         QFile file(":/archive-api-x86_64-static.dll");
         qdebug_line();
         if (file.open(QIODevice::ReadOnly))
@@ -145,6 +146,14 @@ int main(int argc, char *argv[])
         {
             throw std::logic_error("Could not open: " + file.fileName().toStdString());
         }
+#else
+#ifdef QT_STATIC_BUILD
+        ArchiveApiClient cli((qApp->applicationDirPath() + "/archive-api-x86_64-static.dll").toStdString());
+#else
+        ArchiveApiClient cli((qApp->applicationDirPath() + "/archive-api-x86_64.dll").toStdString());
+#endif
+        mainDll = prepareMain(splash, cli);
+#endif
         splash.finish(nullptr);
     }
     // exit(0);

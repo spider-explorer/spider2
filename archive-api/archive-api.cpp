@@ -1,9 +1,6 @@
 ﻿#include "debug_line.h"
 #include "archive_api.h"
 
-#include "strconv.h"
-static unicode_ostream uout(std::cerr, ::GetConsoleOutputCP());
-
 extern "C" __declspec(dllexport) int start(int port)
 {
     auto  svr = new ArchiveApiServer(port);

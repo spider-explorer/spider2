@@ -14,7 +14,7 @@ DEFINES += DEBUG_LINE
 
 LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 
-PRECOMPILED_HEADER = stable.h
+#PRECOMPILED_HEADER = stable.h
 
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
@@ -146,5 +146,5 @@ include($$(HOME)/include/include.pri)
 include($$(HOME)/qt/common/common.pri)
 
 #include($$PWD/../lib/lib.pri)
-include($$PWD/../archive-api/archive-api.pri)
+#include($$PWD/../archive-api/archive-api.pri)
 

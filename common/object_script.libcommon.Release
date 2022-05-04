@@ -1,0 +1,12 @@
+release/jchecksum.o
+release/jlistwidget.o
+release/jnetwork.o
+release/junctionmanager.o
+release/pcloudapi.o
+release/variantserializer.o
+release/youtubeapi.o
+release/MemoryModule.o
+release/archive_api.o
+release/http_api.o
+release/moc_jlistwidget.o
+release/moc_jnetwork.o

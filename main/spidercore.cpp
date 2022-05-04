@@ -185,15 +185,16 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     m_env["path"] = np(m_env["dir"] + "/spiderbrowser") + ";" + m_env["path"];
     qdebug_line1("SpiderCore::SpiderCore(4)");
     //
-    QFile file(":/archive-api-x86_64-static.dll");
-    if (file.open(QIODevice::ReadOnly))
+    //QFile file(":/archive-api-x86_64-static.dll");
+    //if (file.open(QIODevice::ReadOnly))
     {
-        QByteArray bytes = file.readAll();
-        //auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
-        //proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
-        //proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
-        //int port = start(0);
-        ArchiveApiClient cli(bytes.data(), bytes.size());
+        //QByteArray bytes = file.readAll();
+        //ArchiveApiClient cli(bytes.data(), bytes.size());
+#ifdef QT_STATIC_BUILD
+        ArchiveApiClient cli((m_env["dir"] + "/archive-api-x86_64-static.dll").toStdString());
+#else
+        ArchiveApiClient cli((m_env["dir"] + "/archive-api-x86_64.dll").toStdString());
+#endif
         //
         QUrl softwareUrl("https://gitlab.com/spider-explorer/spider-software/-/raw/main/spider-software.json");
         JsonSettings softwareSettings(softwareUrl);
@@ -201,6 +202,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
         QStringList appList = softwareSettings.value("software").toMap().keys();
         for(int i=0; i<appList.size(); i++)
         {
+            qdebug_line2(i, appList[i]);
             if(appList[i]=="git") continue;
             prepareProgram(softwareSettings, appList[i], cli);
         }
@@ -228,71 +230,6 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
         //stop(port);
     }
 
-#if 0x0
-    //
-    QString wix_dir = prepareProgram(softwareSettings, "wixtoolset");
-    //
-    QString nyagos_dir = prepareProgram(softwareSettings, "nyagos");
-    //
-    QString wt_dir = prepareProgram(softwareSettings, "windows-terminal");
-    //
-    QString astyle_dir = prepareProgram(softwareSettings, "astyle");
-    ////m_env["path"] = np(astyle_dir + "/bin") + ";" + m_env["path"];
-    //
-    QString uncrustify_dir = prepareProgram(softwareSettings, "uncrustify");
-    ////m_env["path"] = np(uncrustify_dir + "/bin") + ";" + m_env["path"];
-    //
-    QString make_dir = prepareProgram(softwareSettings, "make");
-    ////m_env["path"] = np(make_dir + "/bin") + ";" + m_env["path"];
-    //
-    QString cmake_dir = prepareProgram(softwareSettings, "cmake");
-    ////m_env["path"] = np(cmake_dir + "/bin") + ";" + m_env["path"];
-    //
-    QString premake_dir = prepareProgram(softwareSettings, "premake");
-    ////m_env["path"] = np(premake_dir) + ";" + m_env["path"];
-    //
-    QString deno_dir = prepareProgram(softwareSettings, "deno");
-    ////m_env["path"] = np(deno_dir) + ";" + m_env["path"];
-    //
-    QString vscode_dir = prepareProgram(softwareSettings, "vscode");
-    ////m_env["path"] = np(vscode_dir + "/bin") + ";" + np(vscode_dir) + ";" + m_env["path"];
-    m_env["vscode"] = vscode_dir + "/Code.exe";
-    //
-    QString geany_dir = prepareProgram(softwareSettings, "geany");
-    ////m_env["path"] = np(geany_dir + "/bin") + ";" + m_env["path"];
-    m_env["geany"] = geany_dir + "/bin/geany.exe";
-    //
-    QString file_dir = prepareProgram(softwareSettings, "file");
-    ////m_env["path"] = np(file_dir) + ";" + m_env["path"];
-    //
-    QString foldersize_dir = prepareProgram(softwareSettings, "FolderSizePortable");
-    //
-    QString sqlitestudio_dir = prepareProgram(softwareSettings, "sqlitestudio");
-    //
-    QString rapidee_dir = prepareProgram(softwareSettings, "rapidee");
-    //
-    QString busybox_dir = prepareProgram(softwareSettings, "busybox");
-    // notepad3-5.21.1129.1
-    QString notepad3_dir = prepareProgram(softwareSettings, "notepad3");
-    //
-    QString smartgit_dir = prepareProgram(softwareSettings, "smartgit");
-    // office_x64-7.3.2.7z
-    QString office_dir = prepareProgram(softwareSettings, "office_x64");
-    // curl-7.82.0_2
-    QString curl_dir = prepareProgram(softwareSettings, "curl");
-    // wget-1.21.3
-    QString wget_dir = prepareProgram(softwareSettings, "wget");
-    // wget-1.21.3
-    QString sed_dir = prepareProgram(softwareSettings, "sed");
-    // qownnotes-22.4.0.7z
-    QString qownnotes_dir = prepareProgram(softwareSettings, "qownnotes");
-    // AirExplorer-4.6.2.7z
-    QString airexplorer_dir = prepareProgram(softwareSettings, "AirExplorer");
-    // Everything-1.4.1.1015.x64.zip
-    QString everything_dir = prepareProgram(softwareSettings, "Everything");
-    // jq
-    QString jq_dir = prepareProgram(softwareSettings, "jq");
-#endif
     //
 #if 0x0
     QString ubuntuTar = prepareWsl("Ubuntu");
