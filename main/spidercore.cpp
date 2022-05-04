@@ -191,6 +191,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     //QFile file(":/archive-api-x86_64-static.dll");
     //if (file.open(QIODevice::ReadOnly))
     {
+        qdebug_line1(QFileInfo(m_env["dir"]).canonicalFilePath());
         //QByteArray bytes = file.readAll();
         //ArchiveApiClient cli(bytes.data(), bytes.size());
 #ifdef QT_STATIC_BUILD
