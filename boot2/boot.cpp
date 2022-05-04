@@ -11,7 +11,7 @@
 #include "jarchiver.h"
 
 //#include "MemoryModule.h"
-#include "archive_api.h"
+//#include "archive_api.h"
 #include "utf8LogHandler.h"
 
 void myCallback(void *data, int64_t extractSizeTotal)
@@ -24,7 +24,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
         Qt::AlignLeft, Qt::white);
 }
 
-static QString prepareMain(QSplashScreen &splash, ArchiveApiClient &cli)
+static QString prepareMain(QSplashScreen &splash)
 {
     qdebug_line();
     JNetworkManager nm;
@@ -146,25 +146,6 @@ int main(int argc, char *argv[])
         QSplashScreen splash(QPixmap(":/splash.png"));
         splash.show();
 #if 0x0
-        QFile file(":/archive-api-x86_64-static.dll");
-        qdebug_line();
-        if (file.open(QIODevice::ReadOnly))
-        {
-            QByteArray bytes = file.readAll();
-            //auto h = MemoryLoadLibrary(bytes.data(), bytes.size());
-            //proto_start start = (proto_start)MemoryGetProcAddress(h, "start");
-            //proto_stop stop = (proto_stop)MemoryGetProcAddress(h, "stop");
-            //int port = start(0);
-            //ArchiveApiClient cli(port);
-            ArchiveApiClient cli(bytes.data(), bytes.size());
-            mainDll = prepareMain(splash, cli);
-            //stop(port);
-        }
-        else
-        {
-            throw std::logic_error("Could not open: " + file.fileName().toStdString());
-        }
-#else
         auto readFileBytes = [](const QString &dllPath)->QByteArray
         {
             QFile file(dllPath);
@@ -178,8 +159,8 @@ int main(int argc, char *argv[])
         QByteArray bytes = readFileBytes(qApp->applicationDirPath() + "/archive-api-x86_64.dll");
         ArchiveApiClient cli(bytes.data(), bytes.size());
 #endif
-        mainDll = prepareMain(splash, cli);
 #endif
+        mainDll = prepareMain(splash);
         splash.finish(nullptr);
     }
     // exit(0);

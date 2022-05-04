@@ -12,13 +12,14 @@
 #include "junctionmanager.h"
 #include "jarchiver.h"
 
-#include "MemoryModule.h"
-#include "archive_api.h"
+//#include "MemoryModule.h"
+//#include "archive_api.h"
 #include "debug_line.h"
 
 static SpiderCore *s_core = nullptr;
 static JsonSettings *s_settings = nullptr;
 static QMutex *s_mutex = nullptr;
+#if 0x0
 struct DecompressInfo
 {
     QSplashScreen *splash = nullptr;
@@ -39,6 +40,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
         .arg(dinfo->locale->formattedDataSize(extractSizeTotal)),
         Qt::AlignLeft, Qt::white);
 }
+#endif
 
 QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName, ArchiveApiClient &cli)
 {
