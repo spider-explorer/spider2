@@ -15,6 +15,8 @@ LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
+QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CXXFLAGS_DEBUG
+
 SOURCES += boot.cpp
 
 INCLUDEPATH += $$(HOME)/include

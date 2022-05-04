@@ -19,6 +19,8 @@ LIBS += -L$$[QT_INSTALL_PREFIX]/lib
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 msvc:QMAKE_LFLAGS += /LTCG:INCREMENTAL
 
+QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CXXFLAGS_DEBUG
+
 #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
 LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
 #LIBS += $$PWD/efsw/libefsw.a
