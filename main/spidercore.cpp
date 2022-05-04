@@ -41,6 +41,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
 
 QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName, ArchiveApiClient &cli)
 {
+    qdebug_line1("SpiderCore::prepareProgram(1)");
     JNetworkManager nm;
     QString urlString = softwareSettings.value(QString("software/%1/url").arg(progName)).toString();
     QString version = softwareSettings.value(QString("software/%1/version").arg(progName)).toString();
