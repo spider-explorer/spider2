@@ -10,6 +10,7 @@
 #include "wslcore.h"
 #include "jnetwork.h"
 #include "junctionmanager.h"
+#include "jarchiver.h"
 
 #include "MemoryModule.h"
 #include "archive_api.h"
@@ -81,8 +82,8 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
     {
         qdebug_line1("SpiderCore::prepareProgram(6)");
         qdebug_line2("(!QFileInfo(installDir).exists())", installDir);
-#if 0x0
-        qDebug() << extractZip(dlPath, installDir,
+#if 0x1
+        qDebug() << extract_archive(dlPath, installDir,
                                [this, &locale, progName, version](qint64 extractSizeTotal)
         {
             m_splash.showMessage(

@@ -8,5 +8,6 @@ release/youtubeapi.o
 release/MemoryModule.o
 release/archive_api.o
 release/http_api.o
+release/jarchiver.o
 release/moc_jlistwidget.o
 release/moc_jnetwork.o

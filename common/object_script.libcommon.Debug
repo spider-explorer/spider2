@@ -8,5 +8,6 @@ debug/youtubeapi.o
 debug/MemoryModule.o
 debug/archive_api.o
 debug/http_api.o
+debug/jarchiver.o
 debug/moc_jlistwidget.o
 debug/moc_jnetwork.o

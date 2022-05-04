@@ -30,7 +30,8 @@ HEADERS += \
     $$PWD/youtubeapi.h \
     MemoryModule.h \
     archive_api.h \
-    http_api.h
+    http_api.h \
+    jarchiver.h
 
 SOURCES += \
     $$PWD/jchecksum.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/youtubeapi.cpp \
     MemoryModule.c \
     archive_api.cpp \
-    http_api.cpp
+    http_api.cpp \
+    jarchiver.cpp
 
 gcc {
     #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4

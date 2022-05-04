@@ -3,7 +3,7 @@ set -e
 cwd=`pwd`
 killall boot2-x86_64-static || true
 sleep 3
-cp -p boot2-x86_64-static.exe archive-api-x86_64-static.dll ~/../
+cp -p boot2-x86_64-static.exe ~/../
 rm -rf *.tmp
 rm -rf common
 cp -rp ~/qt/common .

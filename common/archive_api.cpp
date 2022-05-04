@@ -24,7 +24,7 @@ static bool extract_archive_entry(archive *a,
                                   std::uint64_t id)
 {
     std::wstring pathname = archive_entry_pathname_w(entry);
-    //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << ":" << wide_to_ansi(pathname) << std::endl;
+    std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << ":" << wide_to_ansi(pathname) << std::endl;
     std::wstring writePath = target + L"/" + pathname;
     bool isDir = strutil::ends_with(pathname, L"/");
     if(isDir) {
@@ -86,7 +86,13 @@ static std::uint64_t extract_archive(const std::string &archivePath,
             if (r < ARCHIVE_OK)
                 fprintf(stderr, "%s\n", archive_error_string(a));
             if (r < ARCHIVE_WARN)
+            {
+                {
+                    std::lock_guard lock(s_mutex);
+                    s_progress_list[id] = -2;
+                }
                 return false;
+            }
             if(!extract_archive_entry(a,
                                       entry,
                                       utf8_to_wide(outputDir),
@@ -95,14 +101,15 @@ static std::uint64_t extract_archive(const std::string &archivePath,
                 //return false;
             }
         }
-        //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << std::endl;
-        archive_read_close(a);
-        archive_read_free(a);
-        //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << std::endl;
         {
             std::lock_guard lock(s_mutex);
             s_progress_list[id] = -1;
         }
+        //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << std::endl;
+        archive_read_close(a);
+        archive_read_free(a);
+        //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << std::endl;
+        return true;
     });
     return id;
 }
@@ -118,7 +125,7 @@ ArchiveApiServer::ArchiveApiServer(int port, std::size_t nWorker)
         return id;
     });
     this->HandleJsonCall("/extract_progress2", [](const nljson& args) -> nljson {
-        std::int64_t id = args["archive_id"].get<std::int64_t>();
+        std::uint64_t id = args["archive_id"].get<std::uint64_t>();
         std::int64_t progress = extract_progress(id);
         udebug_line3("/extract_progress2", id, progress);
         return progress;
