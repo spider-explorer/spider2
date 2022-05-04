@@ -101,9 +101,9 @@ static QString prepareMain(QSplashScreen &splash, ArchiveApiClient &cli)
         JunctionManager().create(junctionDir, installDir);
     }
 #ifdef QT_STATIC_BUILD
-    QString mainDll = junctionDir + "/main-x86_64-static.dll";
+    QString mainDll = installDir/*junctionDir*/ + "/main-x86_64-static.dll";
 #else
-    QString mainDll = junctionDir + "/main-x86_64.dll";
+    QString mainDll = installDir/*junctionDir*/ + "/main-x86_64.dll";
 #endif
     return mainDll;
 }

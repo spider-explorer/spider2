@@ -50,8 +50,10 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
     m_splash.showMessage(QString("%1 を更新中(%2)...").arg(progName).arg(version), Qt::AlignLeft, Qt::white);
     QString dlPath = m_env["prof"] + QString("/.software/%1/%1-%2.%3").arg(progName).arg(version).arg(ext);
     QLocale locale;
+    qdebug_line1("SpiderCore::prepareProgram(2)");
     if (!QFileInfo(dlPath).exists())
     {
+        qdebug_line1("SpiderCore::prepareProgram(3)");
         QString parentPath = QFileInfo(dlPath).absolutePath();
         QDir(parentPath).removeRecursively();
         qDebug() << nm.getBatchAsFile(urlString, dlPath,
@@ -65,6 +67,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
                 Qt::AlignLeft, Qt::white);
         });
     }
+    qdebug_line1("SpiderCore::prepareProgram(4)");
     m_splash.showMessage(
         QString("%1 を更新中(%2)...インストール中")
         .arg(progName)
@@ -72,9 +75,11 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         Qt::AlignLeft, Qt::white);
     QString installDir = m_env["prof"] + QString("/.software/%1/%2").arg(progName).arg(version);
     QString junctionDir = m_env["prof"] + QString("/.software/%1/current").arg(progName);
+    qdebug_line1("SpiderCore::prepareProgram(5)");
     qdebug_line2("installDir", installDir);
     if (!QFileInfo(installDir).exists())
     {
+        qdebug_line1("SpiderCore::prepareProgram(6)");
         qdebug_line2("(!QFileInfo(installDir).exists())", installDir);
 #if 0x0
         qDebug() << extractZip(dlPath, installDir,
@@ -113,12 +118,15 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         JunctionManager().remove(junctionDir);
         JunctionManager().create(junctionDir, installDir);
     }
+    qdebug_line1("SpiderCore::prepareProgram(7)");
     if (!QFileInfo(junctionDir).exists())
     {
         JunctionManager().create(junctionDir, installDir);
     }
+    qdebug_line1("SpiderCore::prepareProgram(8)");
     if(!path.isEmpty())
     {
+        qdebug_line1("SpiderCore::prepareProgram(9)");
         QStringList pathList = path.split(";");
         for(int i=0; i<pathList.length(); i++)
         {
@@ -135,6 +143,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         }
         m_env["path"] = pathList.join(";") + ";" + m_env["path"];
     }
+    qdebug_line1("SpiderCore::prepareProgram(10)");
     return junctionDir;
 }
 #if 0x0
