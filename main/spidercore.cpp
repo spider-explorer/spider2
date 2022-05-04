@@ -71,8 +71,10 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         Qt::AlignLeft, Qt::white);
     QString installDir = m_env["prof"] + QString("/.software/%1/%2").arg(progName).arg(version);
     QString junctionDir = m_env["prof"] + QString("/.software/%1/current").arg(progName);
+    qdebug_line2("installDir", installDir);
     if (!QFileInfo(installDir).exists())
     {
+        qdebug_line2("(!QFileInfo(installDir).exists())", installDir);
 #if 0x0
         qDebug() << extractZip(dlPath, installDir,
                                [this, &locale, progName, version](qint64 extractSizeTotal)
