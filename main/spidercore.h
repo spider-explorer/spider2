@@ -6,7 +6,7 @@
 #include <QtGui>
 #include <QtNetwork>
 #include <QtWidgets>
-#include "archive_api.h"
+//#include "archive_api.h"
 enum ProcStage
 {
     SETUP,
@@ -49,7 +49,7 @@ private:
     QSplashScreen m_one_moment;
 private:
 ////void prepareScoop();
-    QString prepareProgram(JsonSettings &softwareSettings, QString progName, ArchiveApiClient &cli);
+    QString prepareProgram(JsonSettings &softwareSettings, QString progName);
     QString prepareWsl(QString distroName);
 };
 extern SpiderCore &g_core();

@@ -42,7 +42,7 @@ void myCallback(void *data, int64_t extractSizeTotal)
 }
 #endif
 
-QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName, ArchiveApiClient &cli)
+QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName)
 {
     qdebug_line1("SpiderCore::prepareProgram(1)");
     JNetworkManager nm;
@@ -203,6 +203,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
     //QFile file(":/archive-api-x86_64-static.dll");
     //if (file.open(QIODevice::ReadOnly))
     {
+#if 0x0
         qdebug_line1(QFileInfo(m_env["dir"]).canonicalFilePath());
         //QByteArray bytes = file.readAll();
         //ArchiveApiClient cli(bytes.data(), bytes.size());
@@ -210,6 +211,7 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
         ArchiveApiClient cli((QFileInfo(m_env["dir"]).canonicalFilePath() + "/archive-api-x86_64-static.dll").toStdString());
 #else
         ArchiveApiClient cli((m_env["dir"] + "/archive-api-x86_64.dll").toStdString());
+#endif
 #endif
         //
         QUrl softwareUrl("https://gitlab.com/spider-explorer/spider-software/-/raw/main/spider-software.json");
@@ -220,13 +222,13 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
         {
             qdebug_line2(i, appList[i]);
             if(appList[i]=="git") continue;
-            prepareProgram(softwareSettings, appList[i], cli);
+            prepareProgram(softwareSettings, appList[i]);
         }
         qdebug_line();
         //
         ////QString sevenzip_dir = prepareProgram(softwareSettings, "7zip");
         //
-        QString git_dir = prepareProgram(softwareSettings, "git", cli);
+        QString git_dir = prepareProgram(softwareSettings, "git");
         {
             QProcess gitProc;
             gitProc.setProgram(git_dir + "/bin/git.exe");
