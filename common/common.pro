@@ -3,6 +3,7 @@ QT += core gui widgets network
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++17
+CONFIG += force_debug_info
 
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
 
