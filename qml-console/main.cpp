@@ -1,39 +1,29 @@
 ﻿#include <QtCore>
 #include <QtGui>
 #include <QtQml>
-
 #include "utf8LogHandler.h"
 #include "app-data.h"
-
 //#include "AJSEngine.h"
-
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
-
     QGuiApplication app(argc, argv);
     qInstallMessageHandler(utf8LogHandler);
-
     qDebug() << "(01)";
-
     qmlRegisterType<ApplicationData>("app", 1, 0, "ApplicationData");
     qmlRegisterType<ApplicationFactory>("app", 1, 0, "ApplicationFactory");
-
     QQmlApplicationEngine engine;
     ApplicationFactory fac(&engine);
     engine.globalObject().setProperty("glob2", engine.newQObject(&fac));
-
     QFile esprima(":/esprima.js");
     if (!esprima.open(QIODevice::ReadOnly)) throw std::logic_error(":/esprima.js");
     engine.evaluate(QString::fromUtf8(esprima.readAll()));
-
     //QFile babel(":/babel.js");
     //if (!babel.open(QIODevice::ReadOnly)) throw std::logic_error(":/babel.js");
     //engine.evaluate(QString::fromUtf8(babel.readAll()));
     engine.globalObject().setProperty("Babel", engine.importModule(":/babel-parser.mjs"));
-
     if(app.arguments().size() < 2)
     {
         qDebug() << "QML path not specified.";
@@ -59,7 +49,6 @@ int main(int argc, char *argv[])
         qDebug() << errorV;
         return 0;
     }
-
     QFileInfo info(app.arguments()[1]);
     if(info.suffix().toLower()=="mjs")
     {
@@ -73,10 +62,10 @@ int main(int argc, char *argv[])
         if(result.isError())
         {
             qDebug().noquote()
-                  << "Uncaught exception at"
-                  << result.property("fileName").toString()
-                  << "line" << result.property("lineNumber").toInt()
-                  << ":" << result.toString();
+                << "Uncaught exception at"
+                << result.property("fileName").toString()
+                << "line" << result.property("lineNumber").toInt()
+                << ":" << result.toString();
             qDebug() << "error end.";
             return 1;
         }

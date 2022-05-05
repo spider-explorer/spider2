@@ -5,8 +5,8 @@
 #include "programdb.h"
 EnvVarDialog::EnvVarDialog(QMap<QString, QString> &env, QString repo, QWidget *parent)
     : QDialog(parent), m_env(env), m_repo(repo),
-      // m_iniFileName(iniFileName),
-      ui(new Ui::EnvVarDialog)
+    // m_iniFileName(iniFileName),
+    ui(new Ui::EnvVarDialog)
 {
     ui->setupUi(this);
     this->setContextMenuPolicy(Qt::CustomContextMenu);

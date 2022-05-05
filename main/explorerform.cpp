@@ -246,7 +246,7 @@ void ExplorerForm::on_lineEdit_textChanged(const QString &arg1)
 #if 0x0
         QRegExp rx(arg1, Qt::CaseInsensitive);
         pathList = RecursiveFileLister().listFiles(dirPath,
-                   [&rx](QString path) -> bool
+                                                   [&rx](QString path) -> bool
         {
             QString fileName = QFileInfo(path).fileName();
             return (rx.indexIn(fileName) != -1);

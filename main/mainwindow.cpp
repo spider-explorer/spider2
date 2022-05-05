@@ -466,8 +466,8 @@ void MainWindow::install_msys2()
     strm << QString("mkdir %1").arg(msys2Name) << Qt::endl;
     strm << QString("busybox tar xvf %2 -C %1 --strip-components 1").arg(msys2Name).arg(archive_file) << Qt::endl;
     strm << QString("call %1\\msys2_shell.cmd -msys2 -defterm -here -no-start -c %2")
-         .arg(msys2Name)
-         .arg(QString("echo \"Installation Complete (%1)...\"").arg(msys2Name))
+        .arg(msys2Name)
+        .arg(QString("echo \"Installation Complete (%1)...\"").arg(msys2Name))
          << Qt::endl;
     strm << QString("cd %1\\etc").arg(msys2Name) << Qt::endl;
     strm << QString("if not exist bash.bashrc.orig copy bash.bashrc "
@@ -476,7 +476,7 @@ void MainWindow::install_msys2()
     strm << QString("busybox sed -e \"s/^  export PS1=.*$/  export "
                     "PS1='(%1@$MSYSTEM) "
                     "\\\\w \\$ '/g\" bash.bashrc.orig > bash.bashrc")
-         .arg(msys2Name)
+        .arg(msys2Name)
          << Qt::endl;
     strm << Qt::flush;
     QString cmdLines = *strm.string();
@@ -1043,10 +1043,10 @@ void MainWindow::on_btnUbuntuInstall_clicked()
     strm << QString("mdkir -p %1").arg(installDir) << Qt::endl;
     strm << QString("wsl --import %1 %2 %3").arg(wslName).arg(installDir).arg(g_core().env()["ubuntuTar"]) << Qt::endl;
     strm
-            << QString(
-                R"***(powershell -Command "\$ErrorActionPreference = 'SilentlyContinue'; Function WSL-SetDefaultUser (\$distro, \$user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq \$distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d \$distro -u \$user -e id -u) | Out-String); }; WSL-SetDefaultUser %1 user")***")
-            .arg(wslName)
-            << Qt::endl;
+        << QString(
+        R"***(powershell -Command "\$ErrorActionPreference = 'SilentlyContinue'; Function WSL-SetDefaultUser (\$distro, \$user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq \$distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d \$distro -u \$user -e id -u) | Out-String); }; WSL-SetDefaultUser %1 user")***")
+        .arg(wslName)
+        << Qt::endl;
     strm << Qt::flush;
     QString cmdLines = *strm.string();
     CmdProcess *proc = new CmdProcess(g_core().env(), QString("Ubuntuをインストール"), cmdLines, ".sh");
@@ -1057,7 +1057,7 @@ void MainWindow::on_btnUbuntuImport_clicked()
     auto uhomeName = this->selectedRepoName();
     QString uhomeDir = g_core().env()["docs"] + "/.repo/" + uhomeName;
     QString fileName = QFileDialog::getOpenFileName(this, "Ubuntuインポート ファイル選択", uhomeDir,
-                       tr("Tar files(*.tar);;All Files(*.*)"));
+                                                    tr("Tar files(*.tar);;All Files(*.*)"));
     qDebug() << fileName;
     QString wslName = QFileInfo(fileName).completeBaseName();
     QString installDir = g_core().env()["prof"] + QString("/.software/wsl/Ubuntu/%1").arg(wslName);
@@ -1072,10 +1072,10 @@ void MainWindow::on_btnUbuntuImport_clicked()
     strm << QString("mdkir -p %1").arg(installDir) << Qt::endl;
     strm << QString("wsl --import %1 %2 %3").arg(wslName).arg(installDir).arg(fileName) << Qt::endl;
     strm
-            << QString(
-                R"***(powershell -Command "\$ErrorActionPreference = 'SilentlyContinue'; Function WSL-SetDefaultUser (\$distro, \$user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq \$distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d \$distro -u \$user -e id -u) | Out-String); }; WSL-SetDefaultUser %1 user")***")
-            .arg(wslName)
-            << Qt::endl;
+        << QString(
+        R"***(powershell -Command "\$ErrorActionPreference = 'SilentlyContinue'; Function WSL-SetDefaultUser (\$distro, \$user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq \$distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d \$distro -u \$user -e id -u) | Out-String); }; WSL-SetDefaultUser %1 user")***")
+        .arg(wslName)
+        << Qt::endl;
     strm << Qt::flush;
     QString cmdLines = *strm.string();
     CmdProcess *proc = new CmdProcess(g_core().env(), QString("Ubuntuをインポート"), cmdLines, ".sh");

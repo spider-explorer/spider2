@@ -1,23 +1,19 @@
 ﻿#include <winsock2.h>
 #include "archive_api.h"
 #include "debug_line.h"
-
 //#if defined(__GNUC__)
 #include <archive.h>
 #include <archive_entry.h>
 #include <sys/utime.h>
 #include <filesystem>
 #include "wstrutil.h"
-
 static std::mutex s_mutex;
 static std::vector<std::int64_t> s_progress_list;
-
 static std::int64_t extract_progress(std::uint64_t id)
 {
     std::lock_guard lock(s_mutex);
     return s_progress_list[id];
 }
-
 static bool extract_archive_entry(archive *a,
                                   archive_entry *entry,
                                   const std::wstring &target,
@@ -51,7 +47,6 @@ static bool extract_archive_entry(archive *a,
     //std::cout << __PRETTY_FUNCTION__ << ":" << __LINE__ << ":" << wide_to_ansi(pathname) << std::endl;
     return true;
 }
-
 static std::uint64_t extract_archive(const std::string &archivePath,
                                      const std::string &outputDir)
 {
@@ -113,7 +108,6 @@ static std::uint64_t extract_archive(const std::string &archivePath,
     });
     return id;
 }
-
 ArchiveApiServer::ArchiveApiServer(int port, std::size_t nWorker)
     : HttpApiServer(port, nWorker)
 {
@@ -131,50 +125,42 @@ ArchiveApiServer::ArchiveApiServer(int port, std::size_t nWorker)
         return progress;
     });
 }
-
 //#endif // defined(__GNUC__)
-
 ArchiveApiClient::ArchiveApiClient(int port)
     : HttpApiClient(port)
 {
 }
-
 ArchiveApiClient::ArchiveApiClient(const std::string &dllPath)
     : HttpApiClient(dllPath)
 {
 }
-
 ArchiveApiClient::ArchiveApiClient(const void *top, std::size_t size)
     : HttpApiClient(top, size)
 {
 }
-
 std::uint64_t ArchiveApiClient::extract_archive(const std::string &archivePath, const std::string &outputDir)
 {
     auto res = this->JsonCall("/extract_archive2",
-                          nljson { {"archive_path", archivePath},
-                                   {"output_dir", outputDir} });
+                              nljson { {"archive_path", archivePath},
+                                  {"output_dir", outputDir} });
     std::uint64_t archive_id = res.get<std::uint64_t>();
     return archive_id;
 }
-
 int64_t ArchiveApiClient::extract_progress(std::uint64_t archive_id)
 {
     nljson res = this->JsonCall("/extract_progress2", { {"archive_id", archive_id} });
     std::int64_t progress = res.get<std::int64_t>();
     return progress;
 }
-
 #if defined(HTTP_API_USE_QT)
 quint64 ArchiveApiClient::extract_archive_qt(const QString &archivePath, const QString &outputDir)
 {
     auto res = this->VariantCall("/extract_archive2",
-                            QVariantMap { {"archive_path", archivePath},
-                                          {"output_dir", outputDir} });
+                                 QVariantMap { {"archive_path", archivePath},
+                                     {"output_dir", outputDir} });
     quint64 archive_id = res.toULongLong();
     return archive_id;
 }
-
 qint64 ArchiveApiClient::extract_progress_qt(quint64 archive_id)
 {
     auto res = this->VariantCall("/extract_progress2", QVariantMap { {"archive_id", archive_id} });

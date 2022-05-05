@@ -204,9 +204,9 @@ void SpiderForm::checkGitStatus(QString path, bool full)
         {
             proc->proc()->setProgram("cmd.exe");
             proc->proc()->setArguments(QStringList() << "/c"
-                                       << "busybox.exe"
-                                       << "bash"
-                                       << "-c" << (full ? "git-diff.sh --full" : "git-diff.sh"));
+                                                     << "busybox.exe"
+                                                     << "bash"
+                                                     << "-c" << (full ? "git-diff.sh --full" : "git-diff.sh"));
             proc->proc()->setWorkingDirectory(repoDir);
         }
         else if (stage == SpiderProcStage::PROC_FINISH)

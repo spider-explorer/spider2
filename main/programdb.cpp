@@ -40,7 +40,6 @@ ProgramDB::ProgramDB()
     //m_chrome = prof + "/scoop/apps/googlechrome/current/chrome.exe";
     //m_joinmp4 = g_core().env()["joinmp4"];
 }
-
 QString ProgramDB::which(const QString progName)
 {
     QString path = g_core().env()["path"];

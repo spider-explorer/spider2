@@ -35,9 +35,9 @@ void CmdProcess::run()
         m_proc.setProcessEnvironment(env);
         m_proc.setWorkingDirectory(np(m_env["docs"]));
         m_proc.setArguments(QStringList() << "nt"
-                            << "-d" << m_env["docs"] << "--title" << m_title << "cmd.exe"
-                            << "/c"
-                            << "exec_and_delete.cmd" << np(tempFile.fileName()));
+                                          << "-d" << m_env["docs"] << "--title" << m_title << "cmd.exe"
+                                          << "/c"
+                                          << "exec_and_delete.cmd" << np(tempFile.fileName()));
         m_proc.start();
     }
     if (tempFile.open())

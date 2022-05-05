@@ -1,15 +1,12 @@
 ﻿#include "jnetwork.h"
-
 JNetworkManager::JNetworkManager(QObject *parent)
     : QNetworkAccessManager(parent)
 {
 }
-
 QVariantMap &JNetworkManager::batchResult()
 {
     return m_lastResult;
 }
-
 QNetworkReply *JNetworkManager::headRequest(const QNetworkRequest &request, bool batch)
 {
     QNetworkRequest request2(request);
@@ -25,7 +22,6 @@ QNetworkReply *JNetworkManager::headRequest(const QNetworkRequest &request, bool
     }
     return reply;
 }
-
 QVariantMap JNetworkManager::headBatch(const QNetworkRequest &request)
 {
     QVariantMap result;
@@ -52,12 +48,10 @@ QVariantMap JNetworkManager::headBatch(const QNetworkRequest &request)
     reply->deleteLater();
     return result;
 }
-
 QVariantMap JNetworkManager::headBatch(const QUrl &url)
 {
     return this->headBatch(QNetworkRequest(url));
 }
-
 QNetworkReply *JNetworkManager::getRequest(const QNetworkRequest &request, bool batch, NetworkIdleCallback callback)
 {
     QNetworkRequest request2(request);
@@ -77,7 +71,6 @@ QNetworkReply *JNetworkManager::getRequest(const QNetworkRequest &request, bool 
     }
     return reply;
 }
-
 QVariantMap JNetworkManager::getBatch(const QNetworkRequest &request, NetworkIdleCallback callback)
 {
     QVariantMap result;
@@ -104,23 +97,19 @@ QVariantMap JNetworkManager::getBatch(const QNetworkRequest &request, NetworkIdl
     reply->deleteLater();
     return result;
 }
-
 QVariantMap JNetworkManager::getBatch(const QUrl &url, NetworkIdleCallback callback)
 {
     return this->getBatch(QNetworkRequest(url), callback);
 }
-
 QString JNetworkManager::getBatchAsText(const QNetworkRequest &request, NetworkIdleCallback callback)
 {
     QVariantMap result = this->getBatch(request, callback);
     return QString::fromUtf8(result["body"].toByteArray());
 }
-
 QString JNetworkManager::getBatchAsText(const QUrl &url, NetworkIdleCallback callback)
 {
     return this->getBatchAsText(QNetworkRequest(url), callback);
 }
-
 bool JNetworkManager::getBatchAsFile(const QNetworkRequest &request, QString filePath, NetworkIdleCallback callback)
 {
     QFileInfo info(filePath);
@@ -145,24 +134,19 @@ bool JNetworkManager::getBatchAsFile(const QNetworkRequest &request, QString fil
         return false;
     }
 }
-
 bool JNetworkManager::getBatchAsFile(const QUrl &url, QString filePath, NetworkIdleCallback callback)
 {
     return this->getBatchAsFile(QNetworkRequest(url), filePath, callback);
-
 }
-
 QVariant JNetworkManager::getBatchAsJson(const QNetworkRequest &request, NetworkIdleCallback callback)
 {
     QVariantMap result = this->getBatch(request, callback);
     return QJsonDocument::fromJson(result["body"].toByteArray()).toVariant();
 }
-
 QVariant JNetworkManager::getBatchAsJson(const QUrl &url, NetworkIdleCallback callback)
 {
     return this->getBatchAsJson(QNetworkRequest(url), callback);
 }
-
 QNetworkReply *JNetworkManager::postRequest(const QNetworkRequest &request, bool batch, const QByteArray &contentType, const QByteArray &data, NetworkIdleCallback callback)
 {
     QNetworkRequest request2(request);
@@ -184,7 +168,6 @@ QNetworkReply *JNetworkManager::postRequest(const QNetworkRequest &request, bool
     }
     return reply;
 }
-
 QVariantMap JNetworkManager::postBatch(const QNetworkRequest &request, const QByteArray &contentType, const QByteArray &data, NetworkIdleCallback callback)
 {
     QVariantMap result;
@@ -211,19 +194,15 @@ QVariantMap JNetworkManager::postBatch(const QNetworkRequest &request, const QBy
     reply->deleteLater();
     return result;
 }
-
 QVariantMap JNetworkManager::postBatch(const QUrl &url, const QByteArray &contentType, const QByteArray &data, NetworkIdleCallback callback)
 {
     return this->postBatch(QNetworkRequest(url), contentType, data, callback);
 }
-
-
 QVariant JNetworkManager::postBatchJsonRequest(const QNetworkRequest &request, const QVariant &data, NetworkIdleCallback callback)
 {
     QVariantMap result = this->postBatch(request, "application/json", QJsonDocument::fromVariant(data).toJson(), callback);
     return QJsonDocument::fromJson(result["body"].toByteArray()).toVariant();
 }
-
 QVariant JNetworkManager::postBatchJsonRequest(const QUrl &url, const QVariant &data, NetworkIdleCallback callback)
 {
     return this->postBatchJsonRequest(QNetworkRequest(url), data, callback);

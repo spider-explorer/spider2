@@ -13,10 +13,10 @@ QJsonDocument ignoredList(QString cwd)
     }
     proc.setProgram("cmd.exe");
     proc.setArguments(QStringList() << "/c"
-                      << "git.exe"
-                      << "status"
-                      << "--ignored"
-                      << "--short");
+                                    << "git.exe"
+                                    << "status"
+                                    << "--ignored"
+                                    << "--short");
     proc.start();
     proc.waitForFinished();
     QString output = QString::fromUtf8(proc.readAllStandardOutput());

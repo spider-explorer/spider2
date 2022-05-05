@@ -1,12 +1,10 @@
 ﻿#include "youtubeapi.h"
 #include "jnetwork.h"
-
 YoutubeAPI::YoutubeAPI()
 {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     m_key = env.value("YOUTUBE_API_KEY");
 }
-
 QVariantList YoutubeAPI::searchVideo(const QString &text, bool highDefinition)
 {
     QUrl url("https://www.googleapis.com/youtube/v3/search");
@@ -53,7 +51,6 @@ QVariantList YoutubeAPI::searchVideo(const QString &text, bool highDefinition)
     }
     return vList;
 }
-
 QString YoutubeAPI::key()
 {
     return m_key;

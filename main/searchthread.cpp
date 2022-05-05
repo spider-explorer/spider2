@@ -18,7 +18,7 @@ void SearchThread::run()
     {
         QRegularExpression rx(m_rxString, QRegularExpression::CaseInsensitiveOption);
         QStringList pathList = RecursiveFileLister().listFiles(m_topDir,
-                               [this, rx](QString path) -> bool
+                                                               [this, rx](QString path) -> bool
         {
             {
                 {

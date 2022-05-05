@@ -1,6 +1,5 @@
 ﻿#include <winsock2.h>
 #include "pcloudapi.h"
-
 #include "varianttojson.h"
 #include "httplib.h"
 #include "nljson.h"
@@ -9,7 +8,6 @@
 #include "url_encode.h"
 #include "wstrutil.h"
 #include <filesystem>
-
 class HttpApiClientUtil {
 public:
     static std::string BuildPath(const std::string &path, const httplib::Params &params)
@@ -31,7 +29,6 @@ public:
         return buffer.str();
     }
 };
-
 pCloudAPI::pCloudAPI()
 {
 #if 0x0
@@ -63,7 +60,6 @@ pCloudAPI::pCloudAPI()
     //exit(0);
 #endif
 }
-
 pCloudAPI::~pCloudAPI()
 {
 #if 0x0
@@ -81,7 +77,6 @@ pCloudAPI::~pCloudAPI()
     debug_line1(res->body);
 #endif
 }
-
 void pCloudAPI::listFolder()
 {
 #if 0x0
@@ -115,7 +110,6 @@ void pCloudAPI::listFolder()
     debug_line1(json.dump(2));
 #endif
 }
-
 void pCloudAPI::uploadFile()
 {
 #if 0x0

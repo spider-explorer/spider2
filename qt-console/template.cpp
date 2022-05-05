@@ -3,9 +3,7 @@
 #include <QtWidgets>
 #include "utf8LogHandler.h"
 #include "debug_line.h"
-
 #include "jnetwork.h"
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);

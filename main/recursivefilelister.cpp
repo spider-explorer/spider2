@@ -49,9 +49,9 @@ QStringList RecursiveFileLister::listFiles(QString topDir, RecursiveFileListerCa
         {
             proc->proc()->setProgram("cmd.exe");
             proc->proc()->setArguments(QStringList() << "/c"
-                                       << "git-console-x86_64-static.exe"
-                                       << "--action"
-                                       << "ignored" << topDir);
+                                                     << "git-console-x86_64-static.exe"
+                                                     << "--action"
+                                                     << "ignored" << topDir);
         }
         else if (stage == SpiderProcStage::PROC_FINISH)
         {

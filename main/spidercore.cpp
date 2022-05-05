@@ -11,11 +11,9 @@
 #include "jnetwork.h"
 #include "junctionmanager.h"
 #include "jarchiver.h"
-
 //#include "MemoryModule.h"
 //#include "archive_api.h"
 #include "debug_line.h"
-
 static SpiderCore *s_core = nullptr;
 static JsonSettings *s_settings = nullptr;
 static QMutex *s_mutex = nullptr;
@@ -27,7 +25,6 @@ struct DecompressInfo
     QString progName;
     QString version;
 };
-
 void myCallback(void *data, int64_t extractSizeTotal)
 {
     //qDebug() << "myCallback() called.";
@@ -41,7 +38,6 @@ void myCallback(void *data, int64_t extractSizeTotal)
         Qt::AlignLeft, Qt::white);
 }
 #endif
-
 QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progName)
 {
     qdebug_line1("SpiderCore::prepareProgram(1)");
@@ -60,7 +56,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         QString parentPath = QFileInfo(dlPath).absolutePath();
         QDir(parentPath).removeRecursively();
         qDebug() << nm.getBatchAsFile(urlString, dlPath,
-                               [this, &locale, progName, version](QNetworkReply *reply)
+                                      [this, &locale, progName, version](QNetworkReply *reply)
         {
             m_splash.showMessage(
                 QString("%1 を更新中(%2)...ダウンロード中: %3")
@@ -86,7 +82,7 @@ QString SpiderCore::prepareProgram(JsonSettings &softwareSettings, QString progN
         qdebug_line2("(!QFileInfo(installDir).exists())", installDir);
 #if 0x1
         qDebug() << extract_archive(dlPath, installDir,
-                               [this, &locale, progName, version](qint64 extractSizeTotal)
+                                    [this, &locale, progName, version](qint64 extractSizeTotal)
         {
             m_splash.showMessage(
                 QString("%1 を更新中(%2)...インストール中: %3")
@@ -157,7 +153,8 @@ QString SpiderCore::prepareWsl(QString distroName)
     QString dlPath = m_env["prof"] + QString("/.software/wsl/%1.tar.7z").arg(distroName);
     QString urlString = QString("https://gitlab.com/javacommons/wsl-release/-/raw/main/%1.tar.7z").arg(distroName);
     qDebug() << nm.getBatchAsFile(urlString, dlPath,
-    [](QNetworkReply *reply) {});
+                                  [](QNetworkReply *reply) {
+    });
     QString installDir = m_env["prof"] + QString("/.software/wsl/%1").arg(distroName);
     if (!QFileInfo(installDir).exists())
     {
@@ -233,21 +230,20 @@ SpiderCore::SpiderCore(QSplashScreen &splash, const QString &mainDllPath) : m_sp
             QProcess gitProc;
             gitProc.setProgram(git_dir + "/bin/git.exe");
             gitProc.setArguments(QStringList() << "config"
-                                 << "--system"
-                                 << "core.autocrlf"
-                                 << "input");
+                                               << "--system"
+                                               << "core.autocrlf"
+                                               << "input");
             gitProc.start();
             gitProc.waitForFinished();
             gitProc.setArguments(QStringList() << "config"
-                                 << "--system"
-                                 << "credential.helper"
-                                 << "manager-core");
+                                               << "--system"
+                                               << "credential.helper"
+                                               << "manager-core");
             gitProc.start();
             gitProc.waitForFinished();
         }
         //stop(port);
     }
-
     //
 #if 0x0
     QString ubuntuTar = prepareWsl("Ubuntu");
@@ -315,11 +311,11 @@ void SpiderCore::open_nyagos(QWidget *widget, QString path)
             proc->proc()->setProgram(ProgramDB().which("wt.exe"));
             proc->proc()->setArguments(
                 QStringList() /*<< "--focus"*/ << R"(nt)"
-                << "--title"
-                << QString("(Nyagos) %1 + %2")
-                .arg(uhomeName.isEmpty() ? ".repo" : uhomeName)
-                .arg(msys2Name.isEmpty() ? "(none)" : msys2Name)
-                << "-d" << path << R"(nyagos.exe)");
+                                               << "--title"
+                                               << QString("(Nyagos) %1 + %2")
+                    .arg(uhomeName.isEmpty() ? ".repo" : uhomeName)
+                    .arg(msys2Name.isEmpty() ? "(none)" : msys2Name)
+                                               << "-d" << path << R"(nyagos.exe)");
             proc->proc()->setWorkingDirectory(path);
         }
         else if (stage == SpiderProcStage::PROC_FINISH)
@@ -361,14 +357,14 @@ void SpiderCore::open_bash(QWidget *widget, QString path)
         {
             proc->proc()->setProgram(ProgramDB().which("wt.exe"));
             proc->proc()->setArguments(QStringList() << "nt"
-                                       << "--title"
-                                       << QString("(Bash) %1 + %2")
+                                                     << "--title"
+                                                     << QString("(Bash) %1 + %2")
                                        .arg(uhomeName.isEmpty() ? ".repo" : uhomeName)
                                        .arg(msys2Name.isEmpty() ? "(none)" : msys2Name)
-                                       << "-d" << path << "busybox.exe"
-                                       << "bash"
-                                       << "-l"
-                                       << "-c" << QString("cd '%1' && bash").arg(path));
+                                                     << "-d" << path << "busybox.exe"
+                                                     << "bash"
+                                                     << "-l"
+                                                     << "-c" << QString("cd '%1' && bash").arg(path));
             proc->proc()->setWorkingDirectory(path);
         }
         else if (stage == SpiderProcStage::PROC_FINISH)
@@ -406,7 +402,7 @@ void SpiderCore::open_file(QWidget *widget, QString path)
             }
         }
         if (info.suffix() == "7z" || info.suffix() == "gz" || info.suffix() == "xz" || info.suffix() == "tar" ||
-                info.suffix() == "zip")
+            info.suffix() == "zip")
         {
             SpiderProcess *sproc = new SpiderProcess(
                 [this, widget, path](SpiderProcStage stage, SpiderProcess *proc)
@@ -504,7 +500,6 @@ void SpiderCore::open_file(QWidget *widget, QString path)
         }
     }
 }
-
 void SpiderCore::open_notepad3(QWidget *widget, QString path)
 {
     SpiderProcess *sproc = new SpiderProcess(
@@ -532,7 +527,6 @@ void SpiderCore::open_notepad3(QWidget *widget, QString path)
     });
     sproc->start();
 }
-
 QMessageBox::StandardButton SpiderCore::check_system_qt_project(QWidget *widget, QString proFile)
 {
     QFileInfo userInfo = QFileInfo(proFile + ".user");
@@ -555,7 +549,7 @@ QMessageBox::StandardButton SpiderCore::check_system_qt_project(QWidget *widget,
     QFileInfo sysQt = QFileInfo(QStringLiteral("C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
     if(!sysQt.exists()) return QMessageBox::No;
     QMessageBox::StandardButton reply = QMessageBox::question(widget, "確認", QString("%1で開きますか?").arg(sysQt.absoluteFilePath()),
-                                        QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+                                                              QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
     return reply;
 #if 0x0
     if (reply == QMessageBox::Yes)
@@ -570,7 +564,7 @@ void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
     m_one_moment.show();
     m_one_moment.showMessage("QtCreatorを起動中...");
     SpiderProcess *sproc = new SpiderProcess(
-        [this, widget, proFile/*, useSysQt*/](SpiderProcStage stage, SpiderProcess *proc)
+        [this, widget, proFile /*, useSysQt*/](SpiderProcStage stage, SpiderProcess *proc)
     {
         if (stage == SpiderProcStage::PROC_SETUP)
         {
@@ -768,13 +762,13 @@ void SpiderCore::open_msys2(QWidget *widget, QString msys2Dir, QString currentDi
             proc->env()->insert("MSYS2", msys2Name);
             proc->proc()->setProgram(ProgramDB().which("wt.exe"));
             proc->proc()->setArguments(QStringList() << "nt"
-                                       << "--title"
-                                       << QString("(Msys2) %1 + %2")
+                                                     << "--title"
+                                                     << QString("(Msys2) %1 + %2")
                                        .arg(uhomeName.isEmpty() ? ".repo" : uhomeName)
                                        .arg(msys2Name.isEmpty() ? "(none)" : msys2Name)
-                                       << "-d" << currentDir << "cmd.exe"
-                                       << "/c"
-                                       << "mingw.cmd");
+                                                     << "-d" << currentDir << "cmd.exe"
+                                                     << "/c"
+                                                     << "mingw.cmd");
             proc->proc()->setWorkingDirectory(currentDir);
         }
         else if (stage == SpiderProcStage::PROC_FINISH)
@@ -817,8 +811,8 @@ void SpiderCore::install_msys2(QWidget *widget)
     strm << QString("mkdir %1").arg(msys2Name) << Qt::endl;
     strm << QString("busybox tar xvf %2 -C %1 --strip-components 1").arg(msys2Name).arg(archive_file) << Qt::endl;
     strm << QString("call %1\\msys2_shell.cmd -msys2 -defterm -here -no-start -c %2")
-         .arg(msys2Name)
-         .arg(QString("echo \"Installation Complete (%1)...\"").arg(msys2Name))
+        .arg(msys2Name)
+        .arg(QString("echo \"Installation Complete (%1)...\"").arg(msys2Name))
          << Qt::endl;
     strm << QString("cd %1\\etc").arg(msys2Name) << Qt::endl;
     strm << QString("if not exist bash.bashrc.orig copy bash.bashrc "
@@ -827,7 +821,7 @@ void SpiderCore::install_msys2(QWidget *widget)
     strm << QString("busybox sed -e \"s/^  export PS1=.*$/  export "
                     "PS1='(%1@$MSYSTEM) "
                     "\\\\w \\$ '/g\" bash.bashrc.orig > bash.bashrc")
-         .arg(msys2Name)
+        .arg(msys2Name)
          << Qt::endl;
     strm << Qt::flush;
     QString cmdLines = *strm.string();
@@ -860,8 +854,8 @@ void SpiderCore::open_git_page(QWidget *widget, QString repoDir)
     QProcess proc;
     proc.setProgram(ProgramDB().which("git.exe"));
     proc.setArguments(QStringList() << "config"
-                      << "--get"
-                      << "remote.origin.url");
+                                    << "--get"
+                                    << "remote.origin.url");
     proc.setWorkingDirectory(repoDir);
     proc.start();
     proc.waitForFinished();

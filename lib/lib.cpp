@@ -1,12 +1,10 @@
 ﻿#include "lib.h"
-
 #include "strconvEx.h"
 #include <archive.h>
 #include <archive_entry.h>
 #include <sys/utime.h> // _utimbuf
 #include <filesystem>
 #include "wstrutil.h"
-
 static bool api_archive_entry_write(archive *a,
                                     archive_entry *entry,
                                     const std::wstring &target,
@@ -41,8 +39,6 @@ static bool api_archive_entry_write(archive *a,
     }
     return true;
 }
-
-
 extern "C" __declspec(dllexport) bool extract_archive(const char *archivePath,
                                                       const char *outputDir,
                                                       void *data,
@@ -82,7 +78,6 @@ extern "C" __declspec(dllexport) bool extract_archive(const char *archivePath,
     archive_read_free(a);
     return true;
 }
-
 static void dummy()
 {
     proto_extract_archive f1 = extract_archive;

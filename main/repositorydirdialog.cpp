@@ -26,7 +26,7 @@ RepositoryDirDialog::RepositoryDirDialog(QString rootPath, QWidget *parent)
             [&](QString path)
     {
         qDebug() << "RepositoryDirDialog: "
-                 "ファイルのダブルクリックを検知しました:"
+            "ファイルのダブルクリックを検知しました:"
                  << path;
         g_core().open_file(this, path);
     });

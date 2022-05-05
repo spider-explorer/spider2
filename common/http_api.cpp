@@ -6,24 +6,20 @@
 #include "url_encode.h"
 #include "wstrutil.h"
 #include "MemoryModule.h"
-
 static std::mutex s_mutex;
 static std::map<int, HttpApiServer *> s_server_map;
-
 HttpApiServer::HttpApiServer(int port, std::size_t nWorker)
     : httplib::Server(), m_port(port)
 {
     this->new_task_queue =
-            [nWorker] {
-        return new httplib::ThreadPool(nWorker);
-    };
+        [nWorker] {
+            return new httplib::ThreadPool(nWorker);
+        };
 }
-
 HttpApiServer::~HttpApiServer()
 {
     debug_line2("Destructing...", m_port);
 }
-
 int HttpApiServer::start()
 {
     if (m_port <= 0)
@@ -47,7 +43,6 @@ int HttpApiServer::start()
     }
     return m_port;
 }
-
 httplib::Server &HttpApiServer::HandleJsonCall(const std::string &pattern, HttpApiHandler handler)
 {
     this->Post(pattern, [handler](const httplib::Request& req, httplib::Response& res)
@@ -59,7 +54,6 @@ httplib::Server &HttpApiServer::HandleJsonCall(const std::string &pattern, HttpA
     });
     return *this;
 }
-
 #if defined(HTTP_API_USE_QT)
 httplib::Server &HttpApiServer::HandleVariantCall(const QString &pattern, HttpApiQtHandler handler)
 {
@@ -73,28 +67,25 @@ httplib::Server &HttpApiServer::HandleVariantCall(const QString &pattern, HttpAp
     return *this;
 }
 #endif
-
 void HttpApiServer::stop_by_port_number(int port)
 {
     std::lock_guard<std::mutex> lock(s_mutex);
     auto it = s_server_map.find(port);
     if (it != s_server_map.end())
     {
-      HttpApiServer *svr = it->second;
-      svr->stop();
-      debug_line2("Stopped...", port);
-      s_server_map.erase(it);
-      delete svr;
-      debug_line2("Deleted...", port);
+        HttpApiServer *svr = it->second;
+        svr->stop();
+        debug_line2("Stopped...", port);
+        s_server_map.erase(it);
+        delete svr;
+        debug_line2("Deleted...", port);
     }
 }
-
 HttpApiClient::HttpApiClient(int port)
 {
     m_port = port;
     m_client = new httplib::Client("127.0.0.1", m_port);
 }
-
 HttpApiClient::HttpApiClient(const std::string &dllPath)
 {
     HMODULE h = ::LoadLibraryW(utf8_to_wide(dllPath).c_str());
@@ -111,7 +102,6 @@ HttpApiClient::HttpApiClient(const std::string &dllPath)
     m_port = m_start(0);
     m_client = new httplib::Client("127.0.0.1", m_port);
 }
-
 HttpApiClient::HttpApiClient(const void *top, std::size_t size)
 {
     HMEMORYMODULE h = ::MemoryLoadLibrary(top, size);
@@ -128,13 +118,10 @@ HttpApiClient::HttpApiClient(const void *top, std::size_t size)
     m_port = m_start(0);
     m_client = new httplib::Client("127.0.0.1", m_port);
 }
-
-
 HttpApiClient::~HttpApiClient()
 {
     if (m_stop) m_stop(m_port);
 }
-
 nljson HttpApiClient::JsonCall(const std::string &path, const nljson &args)
 {
     std::string mpack = convert_json_to_msgpack(args);
@@ -143,7 +130,6 @@ nljson HttpApiClient::JsonCall(const std::string &path, const nljson &args)
     nljson json = convert_msgpack_to_json(result->body);
     return json;
 }
-
 QVariant HttpApiClient::VariantCall(const QString &path, const QVariant &args)
 {
     std::string mpack = convert_variant_to_msgpack(args);
@@ -152,12 +138,10 @@ QVariant HttpApiClient::VariantCall(const QString &path, const QVariant &args)
     QVariant variant = convert_msgpack_to_variant(result->body);
     return variant;
 }
-
 httplib::Client &HttpApiClient::Http()
 {
     return *(this->m_client);
 }
-
 std::string HttpApiClient::BuildPath(const std::string &path, const httplib::Params &params)
 {
     std::vector<std::string> paramsList;
@@ -168,7 +152,6 @@ std::string HttpApiClient::BuildPath(const std::string &path, const httplib::Par
     if(paramsList.size() == 0) return path;
     return path + "?" + strutil::join(paramsList, "&");
 }
-
 std::string HttpApiClient::ReadFileContent(const std::string &utf8_file_path)
 {
     std::wstring wide_path = ::utf8_to_wide(utf8_file_path);

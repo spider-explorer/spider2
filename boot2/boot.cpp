@@ -9,11 +9,9 @@
 #include "jnetwork.h"
 #include "junctionmanager.h"
 #include "jarchiver.h"
-
 //#include "MemoryModule.h"
 //#include "archive_api.h"
 #include "utf8LogHandler.h"
-
 void myCallback(void *data, int64_t extractSizeTotal)
 {
     //qDebug() << "myCallback() called.";
@@ -23,7 +21,6 @@ void myCallback(void *data, int64_t extractSizeTotal)
         QString("Spider本体を展開中...%1").arg(locale.formattedDataSize(extractSizeTotal)),
         Qt::AlignLeft, Qt::white);
 }
-
 static QString prepareMain(QSplashScreen &splash)
 {
     qdebug_line();
@@ -55,8 +52,8 @@ static QString prepareMain(QSplashScreen &splash)
             QDir(parentPath).removeRecursively();
         }
         qDebug() << nm.getBatchAsFile(
-                     urlString, dlPath,
-                     [&splash, &locale](QNetworkReply *reply)
+            urlString, dlPath,
+            [&splash, &locale](QNetworkReply *reply)
         {
             splash.showMessage(
                 QString("Spider本体をダウンロード中...%1")
@@ -74,7 +71,7 @@ static QString prepareMain(QSplashScreen &splash)
     QString installDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
                          QString("/.spider-explorer2/.install/%1").arg(version);
     QString junctionDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                         QString("/.spider-explorer2/.install/current");
+                          QString("/.spider-explorer2/.install/current");
     qdebug_line();
     if (!QFileInfo(installDir).exists())
     {
@@ -90,8 +87,8 @@ static QString prepareMain(QSplashScreen &splash)
         qDebug() << "dlPath:" << dlPath;
         qDebug() << "installDir:" << installDir;
         std::size_t archive_id = cli.extract_archive(
-                        dlPath.toStdString(),
-                        installDir.toStdString());
+            dlPath.toStdString(),
+            installDir.toStdString());
         qdebug_line();
         while(true)
         {
@@ -147,11 +144,11 @@ int main(int argc, char *argv[])
         splash.show();
 #if 0x0
         auto readFileBytes = [](const QString &dllPath)->QByteArray
-        {
-            QFile file(dllPath);
-            if (!file.open(QIODevice::ReadOnly)) return "";
-            return file.readAll();
-        };
+                             {
+                                 QFile file(dllPath);
+                                 if (!file.open(QIODevice::ReadOnly)) return "";
+                                 return file.readAll();
+                             };
 #ifdef QT_STATIC_BUILD
         QByteArray bytes = readFileBytes(qApp->applicationDirPath() + "/archive-api-x86_64-static.dll");
         ArchiveApiClient cli(bytes.data(), bytes.size());
