@@ -3,5 +3,6 @@
         <file>template.pro</file>
         <file>utf8LogHandler.h</file>
         <file>template.cpp</file>
+        <file>template-all.pro</file>
     </qresource>
 </RCC>

@@ -38,6 +38,5 @@ contains(QMAKE_QMAKE, .*static.*) {
 
 #gcc:QMAKE_POST_LINK=strip $$DESTDIR/$(TARGET)
 
-#include($$(HOME)/include/include.pri)
-#include($$(HOME)/qt/common/common.pri)
+include($$(HOME)/qt/common/common.pri)
 #include($$(HOME)/qt/common/boost/boost.pri)

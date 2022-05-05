@@ -36,3 +36,6 @@ RESOURCES += \
     qt-console.qrc
 
 #include($$(HOME)/qt/common/common.pri)
+
+SUBDIRS += \
+    template-all.pro
