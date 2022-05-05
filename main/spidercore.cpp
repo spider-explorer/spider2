@@ -792,7 +792,9 @@ void SpiderCore::install_msys2(QWidget *widget)
     if (!dlg.exec())
         return;
     QString msys2Name = dlg.name();
-    QString archive = "msys2-base-x86_64-20220319.tar.xz";
+    //QString archive = "msys2-base-x86_64-20220319.tar.xz";
+    //https://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20220503.tar.xz
+    QString archive = "msys2-base-x86_64-20220503.tar.xz";
     QString archive_file = np(QString("%1/%2").arg(g_core().env()["temp"]).arg(archive));
     QString archive_url = QString("https://gitlab.com/javacommons/widget01/-/raw/main/%1").arg(archive);
     QString buffer;
