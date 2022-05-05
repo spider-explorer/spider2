@@ -4,6 +4,8 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++17
 
+gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function
+
 DEFINES += CPPHTTPLIB_OPENSSL_SUPPORT
 DEFINES += HTTP_API_USE_QT
 
@@ -47,8 +49,8 @@ SOURCES += \
     jarchiver.cpp
 
 gcc {
-    #LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4
-    #LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
+    LIBS += -larchive -lz -lbz2 -llzma -liconv -lbcrypt -lexpat -lb2 -llz4 -lzstd
+    LIBS += -ladvapi32 -lole32 -loleaut32 -luser32 -luuid
 }
 msvc {
     #LIBS += archive_static.lib

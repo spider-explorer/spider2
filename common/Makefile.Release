@@ -15,7 +15,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DCPPHTTPLIB_OPENSSL_SUPPORT -DHTTP_API_USE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -fno-keep-inline-dllexport -march=nocona -mtune=core2 -Wa,-mbig-obj -O2 -Wall -Wextra -Wextra -ffunction-sections -fdata-sections $(DEFINES)
-CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -ffunction-sections -fdata-sections -fexceptions -mthreads $(DEFINES)
+CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -Wno-unused-parameter -Wno-unused-function -ffunction-sections -fdata-sections -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I. -I. -I..\..\include -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\include -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\include\QtWidgets -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\include\QtGui -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\include\QtNetwork -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\include\QtCore -Irelease -ID:\Users\user\.software\msys2\default\mingw64\qt5-static\share\qt5\mkspecs\win32-g++ 
 LIB        =        ar -rc
 QMAKE         = D:\Users\user\.software\msys2\default\mingw64\qt5-static\bin\qmake.exe
@@ -145,7 +145,7 @@ compiler_moc_predefs_make_all: release/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) release\moc_predefs.h
 release/moc_predefs.h: D:/Users/user/.software/msys2/default/mingw64/qt5-static/share/qt5/mkspecs/features/data/dummy.cpp
-	g++ -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -ffunction-sections -fdata-sections -dM -E -o release\moc_predefs.h D:\Users\user\.software\msys2\default\mingw64\qt5-static\share\qt5\mkspecs\features\data\dummy.cpp
+	g++ -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -Wno-unused-parameter -Wno-unused-function -ffunction-sections -fdata-sections -dM -E -o release\moc_predefs.h D:\Users\user\.software\msys2\default\mingw64\qt5-static\share\qt5\mkspecs\features\data\dummy.cpp
 
 compiler_moc_header_make_all: release/moc_jlistwidget.cpp release/moc_jnetwork.cpp
 compiler_moc_header_clean:
