@@ -567,10 +567,6 @@ QMessageBox::StandardButton SpiderCore::check_system_qt_project(QWidget *widget,
 }
 void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
 {
-#if 0x0
-    QMessageBox::StandardButton useSysQt = this->check_system_qt_project(widget, proFile);
-    if(useSysQt != QMessageBox::Yes && useSysQt != QMessageBox::No) return;
-#endif
     m_one_moment.show();
     m_one_moment.showMessage("QtCreatorを起動中...");
     SpiderProcess *sproc = new SpiderProcess(
@@ -578,28 +574,19 @@ void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
     {
         if (stage == SpiderProcStage::PROC_SETUP)
         {
-#if 0x0
-            if(useSysQt == QMessageBox::Yes)
+            proc->proc()->setProgram(ProgramDB().which("qtcreator.exe"));
+            if(proFile.isEmpty())
             {
-                proc->proc()->setProgram("C:/Qt/Tools/QtCreator/bin/qtcreator.exe");
+                proc->proc()->setArguments(QStringList());
+            }
+            else
+            {
                 proc->proc()->setArguments(QStringList() << proFile);
             }
-            else if(useSysQt == QMessageBox::No)
-            {
-                proc->proc()->setProgram(R"(cmd.exe)");
-                proc->proc()->setArguments(QStringList() << "/c"
-                                           << "mingw64x.cmd"
-                                           << "start"
-                                           << "qtcreator" << proFile);
-            }
-#else
-            proc->proc()->setProgram(ProgramDB().which("qtcreator.exe"));
-            proc->proc()->setArguments(QStringList() << proFile);
-#endif
         }
         else if (stage == SpiderProcStage::PROC_FINISH)
         {
-            m_one_moment.finish(widget);
+            //m_one_moment.finish(widget);
             if (proc->proc()->exitCode() == 0)
             {
                 // QMessageBox::information(widget, "確認", QString("QtCreatorを起動しました(%1)").arg(proFile));
@@ -612,12 +599,8 @@ void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
             proc->deleteLater();
         }
     });
-#if 0x0
-    sproc->start();
-#else
     sproc->startDetached();
     m_one_moment.finish(widget);
-#endif
 }
 void SpiderCore::develop_with_lazarus(QWidget *widget, QString lprFile)
 {

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>765</width>
+    <width>1163</width>
     <height>600</height>
    </rect>
   </property>
@@ -130,7 +130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>765</width>
+     <width>1163</width>
      <height>22</height>
     </rect>
    </property>
@@ -150,7 +150,7 @@
    <addaction name="actionTest02"/>
    <addaction name="actionManageScoop"/>
    <addaction name="actionManageEnvVars"/>
-   <addaction name="actionJoinMP4Files"/>
+   <addaction name="actionQtCreator"/>
    <addaction name="actionAirExplorer"/>
    <addaction name="actionEverything"/>
    <addaction name="actionLazarus"/>
@@ -160,7 +160,6 @@
    <addaction name="actionSQLiteStudio"/>
    <addaction name="actionNotepad3"/>
    <addaction name="actionLibreOffice"/>
-   <addaction name="actionQtCreator"/>
    <addaction name="actionQOwnNotes"/>
   </widget>
   <action name="actionTest01">
@@ -236,11 +235,6 @@
   <action name="actionEverything">
    <property name="text">
     <string>【Everything】</string>
-   </property>
-  </action>
-  <action name="actionJoinMP4Files">
-   <property name="text">
-    <string>【JoinMP4Files】</string>
    </property>
   </action>
  </widget>

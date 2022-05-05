@@ -502,31 +502,7 @@ void SpiderMain::on_actionLibreOffice_triggered()
 }
 void SpiderMain::on_actionQtCreator_triggered()
 {
-    SpiderProcess *sproc = new SpiderProcess(
-        [this](SpiderProcStage stage, SpiderProcess *proc)
-    {
-        if (stage == SpiderProcStage::PROC_SETUP)
-        {
-            proc->proc()->setProgram("cmd.exe");
-            proc->proc()->setArguments(QStringList() << "/c"
-                                       << "mingw64x.cmd"
-                                       << "start"
-                                       << "qtcreator");
-        }
-        else if (stage == SpiderProcStage::PROC_FINISH)
-        {
-            if (proc->proc()->exitCode() == 0)
-            {
-                QMessageBox::information(this, "確認", QString("QtCreatorを起動しました"));
-            }
-            else
-            {
-                QMessageBox::information(this, "確認", QString("QtCreatorの起動が失敗しました"));
-            }
-            proc->deleteLater();
-        }
-    });
-    sproc->start();
+    g_core().develop_with_qtcreator(this, "");
 }
 void SpiderMain::on_actionQOwnNotes_triggered()
 {
