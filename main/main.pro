@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT += core gui widgets network
 equals(QT_MAJOR_VERSION, 6):QT += core5compat
 
 CONFIG += c++17
