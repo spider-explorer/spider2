@@ -590,7 +590,7 @@ void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
             if (proc->proc()->exitCode() == 0)
             {
                 // QMessageBox::information(widget, "確認", QString("QtCreatorを起動しました(%1)").arg(proFile));
-                widget->showMinimized();
+                //widget->showMinimized();
             }
             else
             {
@@ -599,8 +599,15 @@ void SpiderCore::develop_with_qtcreator(QWidget *widget, QString proFile)
             proc->deleteLater();
         }
     });
+#if 0x0
     sproc->startDetached();
     m_one_moment.finish(widget);
+#else
+    sproc->start();
+    sproc->proc()->waitForStarted();
+    m_one_moment.finish(widget);
+    widget->showMinimized();
+#endif
 }
 void SpiderCore::develop_with_lazarus(QWidget *widget, QString lprFile)
 {

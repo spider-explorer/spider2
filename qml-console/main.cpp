@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     //QFile babel(":/babel.js");
     //if (!babel.open(QIODevice::ReadOnly)) throw std::logic_error(":/babel.js");
     //engine.evaluate(QString::fromUtf8(babel.readAll()));
+    engine.globalObject().setProperty("Babel", engine.importModule(":/babel-parser.mjs"));
 
     if(app.arguments().size() < 2)
     {
@@ -39,17 +40,16 @@ int main(int argc, char *argv[])
         QJSValue ast = engine.evaluate(R"***(
     var ad = glob2.newApplicationData();
     console.log(ad.getTextFromCpp());
-    /*
     var bast = Babel.parse('answer = 42',
     {
       sourceType: "module",
       plugins: ["typescript"],
     });
-    */
+    console.log(JSON.stringify(bast, null, 2));
     var ast = esprima.parseScript('answer = 42');
     glob2.log(ast);
     console.log(JSON.stringify(ast, null, 2));
-    ast;
+    bast;
 )***");
         qDebug() << ast.toVariant();
         QJsonDocument jsonDoc = QJsonDocument::fromVariant(ast.toVariant());
