@@ -796,12 +796,14 @@ void SpiderCore::install_msys2(QWidget *widget)
     //https://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20220503.tar.xz
     QString archive = "msys2-base-x86_64-20220503.tar.xz";
     QString archive_file = np(QString("%1/%2").arg(g_core().env()["temp"]).arg(archive));
-    QString archive_url = QString("https://gitlab.com/javacommons/widget01/-/raw/main/%1").arg(archive);
+    //QString archive_url = QString("https://gitlab.com/javacommons/widget01/-/raw/main/%1").arg(archive);
+    QString archive_url = QString("https://repo.msys2.org/distrib/x86_64/%1").arg(archive);
     QString buffer;
     QTextStream strm(&buffer);
     strm << QString("busybox pwd") << Qt::endl;
     strm << QString("cd /d %1").arg(np(g_core().env()["prof"])) << Qt::endl;
-    strm << QString("if not exist %1 busybox wget -O %1 %2").arg(archive_file).arg(archive_url) << Qt::endl;
+    //strm << QString("wget -nc --no-check-certificate --secure-protocol=TLSv1.2 -O %1 %2").arg(archive_file).arg(archive_url) << Qt::endl;
+    strm << QString("wget -nc --no-check-certificate -O %1 %2").arg(archive_file).arg(archive_url) << Qt::endl;
     strm << QString("if not exist .software\\msys2 mkdir .software\\msys2") << Qt::endl;
     strm << QString("cd .software\\msys2") << Qt::endl;
     strm << QString("if exist %1 rmdir /s /q %1").arg(msys2Name) << Qt::endl;
