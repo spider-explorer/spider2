@@ -31,6 +31,7 @@ scoop install git
 scoop bucket add main
 scoop bucket add extras
 json=`cat ./investigate.json`
+processApp $cwd zulu17-jdk "/bin"
 processApp $cwd llvm "/bin"
 processApp $cwd nu "."
 processApp $cwd sliksvn "/bin"

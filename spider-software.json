@@ -43,6 +43,12 @@
       "path": "/program",
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/office_x64/office_x64-7.3.2.7z"
     },
+    "zulu17-jdk": {
+      "version": "17.34.19",
+      "ext": "7z",
+      "path": "/bin",
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/zulu17-jdk/zulu17-jdk-17.34.19.7z"
+    },
     "llvm": {
       "version": "14.0.3",
       "ext": "7z",
@@ -50,10 +56,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/llvm/llvm-14.0.3.7z"
     },
     "nu": {
-      "version": "0.61.0",
+      "version": "0.62.0",
       "ext": "7z",
       "path": ".",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/nu/nu-0.61.0.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/nu/nu-0.62.0.7z"
     },
     "sliksvn": {
       "version": "1.14.2",
@@ -68,10 +74,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/gh/gh-2.9.0.7z"
     },
     "googlechrome": {
-      "version": "101.0.4951.41",
+      "version": "101.0.4951.54",
       "ext": "7z",
       "path": ".",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/googlechrome/googlechrome-101.0.4951.41.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/googlechrome/googlechrome-101.0.4951.54.7z"
     },
     "wixtoolset": {
       "version": "3.11.2",
@@ -200,10 +206,10 @@
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/curl/curl-7.83.0.7z"
     },
     "qownnotes": {
-      "version": "22.4.2",
+      "version": "22.5.0",
       "ext": "7z",
       "path": ".",
-      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/qownnotes/qownnotes-22.4.2.7z"
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/qownnotes/qownnotes-22.5.0.7z"
     },
     "sed": {
       "version": "4.8",
