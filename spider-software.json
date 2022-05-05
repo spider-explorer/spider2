@@ -43,6 +43,12 @@
       "path": "/program",
       "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/office_x64/office_x64-7.3.2.7z"
     },
+    "qt-creator": {
+      "version": "7.0.1",
+      "ext": "7z",
+      "path": "/bin",
+      "url": "https://gitlab.com/spider-explorer/spider-software/-/raw/main/.software/qt-creator/qt-creator-7.0.1.7z"
+    },
     "zulu17-jdk": {
       "version": "17.34.19",
       "ext": "7z",
