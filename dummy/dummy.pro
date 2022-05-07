@@ -14,6 +14,7 @@ DEFINES += _WINSOCKAPI_
 DEFINES += DEBUG_LINE
 
 gcc:QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-function -Wno-cast-function-type
+msvc:QMAKE_CXXFLAGS += /bigobj
 
 HEADERS += utf8LogHandler.h
 
