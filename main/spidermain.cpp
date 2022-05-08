@@ -95,6 +95,14 @@ SpiderMain::SpiderMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::Spider
             g_core().open_notepad3(this, path);
         });
         contextMenu.addAction(actionOpenNotepad3);
+        QAction *actionOpenFolderNyagos = new QAction(QString("%1のフォルダをnyagosで開く").arg(QFileInfo(path).fileName()), this);
+        QObject::connect(actionOpenFolderNyagos, &QAction::triggered,
+                         [this, path]()
+        {
+            qDebug() << path;
+            g_core().open_nyagos(this, QFileInfo(path).absolutePath());
+        });
+        contextMenu.addAction(actionOpenFolderNyagos);
         if(QFileInfo(path).suffix().toLower() == "pro")
         {
             QAction *actionResetQtProject = new QAction(QString("%1をリセットする").arg(QFileInfo(path).fileName()), this);
