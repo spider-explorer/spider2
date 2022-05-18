@@ -31,6 +31,7 @@ scoop install git
 scoop bucket add main
 scoop bucket add extras
 json=`cat ./investigate.json`
+processApp $cwd pycharm "/IDE/bin"
 processApp $cwd qt-creator "/bin"
 processApp $cwd zulu17-jdk "/bin"
 processApp $cwd llvm "/bin"
