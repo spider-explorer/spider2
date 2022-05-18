@@ -467,6 +467,35 @@ void SpiderCore::open_file(QWidget *widget, QString path)
             });
             sproc->start();
         }
+        else if (info.suffix() == "py" || info.suffix() == "pyw")
+        {
+            SpiderProcess *sproc = new SpiderProcess(
+                [this, widget, path](SpiderProcStage stage, SpiderProcess *proc)
+            {
+                if (stage == SpiderProcStage::PROC_SETUP)
+                {
+                    proc->proc()->setProgram(ProgramDB().which("pycharm64.exe"));
+                    proc->proc()->setArguments(QStringList() << QFileInfo(path).absolutePath());
+                    proc->proc()->setWorkingDirectory(QFileInfo(path).absolutePath());
+                }
+                else if (stage == SpiderProcStage::PROC_FINISH)
+                {
+                    if (proc->proc()->exitCode() == 0)
+                    {
+                        // QMessageBox::information(widget, "確認",
+                        // "PyCharmを起動しました");
+                    }
+                    else
+                    {
+                        QMessageBox::information(widget, "確認", "PyCharmの起動が失敗しました");
+                    }
+                    //proc->deleteLater();
+                }
+            });
+            //sproc->start();
+            sproc->proc()->startDetached();
+            sproc->deleteLater();
+        }
         else if (info.suffix() == "pro")
         {
             this->develop_with_qtcreator(widget, info.absoluteFilePath());
