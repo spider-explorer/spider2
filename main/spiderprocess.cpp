@@ -22,10 +22,10 @@ SpiderProcess::SpiderProcess(SpiderProcCallback callback)
     else
     {
         msys2Dir = np(g_core().env()["msys2"] + "/" + msys2Name); //QT_MSYS2_DIR
-        pathAdded += ";";
-        pathAdded += np(g_core().env()["msys2"] + "/" + msys2Name + "/mingw64/bin");
-        pathAdded += ";";
-        pathAdded += np(g_core().env()["msys2"] + "/" + msys2Name + "/mingw64/qt5-static/bin");
+        //pathAdded += ";";
+        //pathAdded += np(g_core().env()["msys2"] + "/" + msys2Name + "/mingw64/bin");
+        //pathAdded += ";";
+        //pathAdded += np(g_core().env()["msys2"] + "/" + msys2Name + "/mingw64/qt5-static/bin");
         //pathAdded += ";";
         //pathAdded += np(g_core().env()["msys2"] + "/" + msys2Name + "/usr/bin");
     }
