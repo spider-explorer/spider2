@@ -151,15 +151,14 @@
    <addaction name="actionManageScoop"/>
    <addaction name="actionManageEnvVars"/>
    <addaction name="actionQtCreator"/>
+   <addaction name="actionChrome"/>
+   <addaction name="actionNotepad3"/>
+   <addaction name="actionLibreOffice"/>
    <addaction name="actionAirExplorer"/>
    <addaction name="actionEverything"/>
-   <addaction name="actionLazarus"/>
-   <addaction name="actionChrome"/>
    <addaction name="actionFolderSize"/>
    <addaction name="actionRapidEE"/>
    <addaction name="actionSQLiteStudio"/>
-   <addaction name="actionNotepad3"/>
-   <addaction name="actionLibreOffice"/>
    <addaction name="actionQOwnNotes"/>
   </widget>
   <action name="actionTest01">
