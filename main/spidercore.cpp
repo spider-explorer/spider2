@@ -474,7 +474,7 @@ void SpiderCore::open_file(QWidget *widget, QString path)
             {
                 if (stage == SpiderProcStage::PROC_SETUP)
                 {
-                    proc->proc()->setProgram(ProgramDB().which("pycharm64.exe"));
+                    proc->proc()->setProgram(ProgramDB().which("pycharm.exe"));
                     proc->proc()->setArguments(QStringList() << QFileInfo(path).absolutePath());
                     proc->proc()->setWorkingDirectory(QFileInfo(path).absolutePath());
                 }
