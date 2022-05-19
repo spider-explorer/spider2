@@ -40,7 +40,7 @@ ProgramDB::ProgramDB()
     //m_chrome = prof + "/scoop/apps/googlechrome/current/chrome.exe";
     //m_joinmp4 = g_core().env()["joinmp4"];
 }
-QString ProgramDB::which(const QString progName)
+QString ProgramDB::which(const QString &progName)
 {
     QString path = g_core().env()["path"];
     QStringList pathList = path.split(";");
@@ -48,6 +48,20 @@ QString ProgramDB::which(const QString progName)
     {
         QFileInfo info = QFileInfo(np(pathElem + "/" + progName));
         if(info.exists()) return info.absoluteFilePath();
+    }
+    return "";
+}
+QString ProgramDB::which(const QStringList &progNameList)
+{
+    QString path = g_core().env()["path"];
+    QStringList pathList = path.split(";");
+    foreach(QString pathElem, pathList)
+    {
+        foreach(QString progName, progNameList)
+        {
+            QFileInfo info = QFileInfo(np(pathElem + "/" + progName));
+            if(info.exists()) return info.absoluteFilePath();
+        }
     }
     return "";
 }

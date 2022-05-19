@@ -5,7 +5,8 @@ class ProgramDB
 {
 public:
     ProgramDB();
-    QString which(const QString progName);
+    QString which(const QString &progName);
+    QString which(const QStringList &progNameList);
     QFileInfo android_studio() const;
     QFileInfo idea() const;
     QFileInfo emacs() const;
