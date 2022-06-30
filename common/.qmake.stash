@@ -1,22 +1,22 @@
-QMAKE_CXX.QT_COMPILER_STDCXX = 199711L
-QMAKE_CXX.QMAKE_MSC_VER = 1929
-QMAKE_CXX.QMAKE_MSC_FULL_VER = 192930143
+QMAKE_CXX.QT_COMPILER_STDCXX = 201703L
+QMAKE_CXX.QMAKE_GCC_MAJOR_VERSION = 11
+QMAKE_CXX.QMAKE_GCC_MINOR_VERSION = 3
+QMAKE_CXX.QMAKE_GCC_PATCH_VERSION = 0
 QMAKE_CXX.COMPILER_MACROS = \
     QT_COMPILER_STDCXX \
-    QMAKE_MSC_VER \
-    QMAKE_MSC_FULL_VER
+    QMAKE_GCC_MAJOR_VERSION \
+    QMAKE_GCC_MINOR_VERSION \
+    QMAKE_GCC_PATCH_VERSION
 QMAKE_CXX.INCDIRS = \
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\ATLMFC\\include" \
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include" \
-    "C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\include\\um" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.19041.0\\ucrt" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.19041.0\\shared" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.19041.0\\um" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.19041.0\\winrt" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.19041.0\\cppwinrt"
+    C:/Users/user/scoop/apps/gcc/current/include \
+    C:/Users/user/.software/msys2/20220503/mingw64/include/c++/11.3.0 \
+    C:/Users/user/.software/msys2/20220503/mingw64/include/c++/11.3.0/x86_64-w64-mingw32 \
+    C:/Users/user/.software/msys2/20220503/mingw64/include/c++/11.3.0/backward \
+    C:/Users/user/.software/msys2/20220503/mingw64/lib/gcc/x86_64-w64-mingw32/11.3.0/include \
+    C:/Users/user/.software/msys2/20220503/mingw64/include \
+    C:/Users/user/.software/msys2/20220503/mingw64/lib/gcc/x86_64-w64-mingw32/11.3.0/include-fixed
 QMAKE_CXX.LIBDIRS = \
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\ATLMFC\\lib\\x64" \
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\lib\\x64" \
-    "C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\lib\\um\\x64" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.19041.0\\ucrt\\x64" \
-    "C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.19041.0\\um\\x64"
+    C:/Users/user/.software/msys2/20220503/mingw64/lib/gcc/x86_64-w64-mingw32/11.3.0 \
+    C:/Users/user/.software/msys2/20220503/mingw64/lib/gcc \
+    C:/Users/user/.software/msys2/20220503/mingw64/x86_64-w64-mingw32/lib \
+    C:/Users/user/.software/msys2/20220503/mingw64/lib
