@@ -869,7 +869,8 @@ void MainWindow::on_btnEnvVarManage_clicked()
         QMessageBox::information(this, "確認", "ホームリポジトリを選択してください");
         return;
     }
-    EnvVarDialog dlg(g_core().env(), repo);
+    QString repoDir = g_core().env()["docs"] + "/.repo/" + repo;
+    EnvVarDialog dlg(repoDir, g_core().env(), repo);
     dlg.exec();
 }
 void MainWindow::on_btnScoopManage_clicked()

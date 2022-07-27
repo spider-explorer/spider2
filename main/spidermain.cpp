@@ -592,7 +592,8 @@ void SpiderMain::on_actionManageEnvVars_triggered()
         QMessageBox::information(this, "確認", "環境変数を記録するホームリポジトリを選択してください");
         return;
     }
-    EnvVarDialog dlg(g_core().env(), repo);
+    QString repoDir = g_core().env()["docs"] + "/.repo/" + repo;
+    EnvVarDialog dlg(repoDir, g_core().env(), repo);
     dlg.exec();
 }
 void SpiderMain::on_actionLazarus_triggered()

@@ -1,4 +1,4 @@
-#ifndef ENVVARDIALOG_H
+﻿#ifndef ENVVARDIALOG_H
 #define ENVVARDIALOG_H
 #include <QDialog>
 #include <QtCore>
@@ -10,9 +10,10 @@ class EnvVarDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit EnvVarDialog(QMap<QString, QString> &env, QString repo, QWidget *parent = nullptr);
+    explicit EnvVarDialog(QString home, QMap<QString, QString> &env, QString repo, QWidget *parent = nullptr);
     ~EnvVarDialog();
 private:
+    QString m_home;
     QMap<QString, QString> m_env;
     QString m_repo;
 // QString m_iniFileName;

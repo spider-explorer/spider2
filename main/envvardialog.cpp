@@ -3,8 +3,8 @@
 #include "common.h"
 #include "ui_envvardialog.h"
 #include "programdb.h"
-EnvVarDialog::EnvVarDialog(QMap<QString, QString> &env, QString repo, QWidget *parent)
-    : QDialog(parent), m_env(env), m_repo(repo),
+EnvVarDialog::EnvVarDialog(QString home, QMap<QString, QString> &env, QString repo, QWidget *parent)
+    : QDialog(parent), m_home(home), m_env(env), m_repo(repo),
     // m_iniFileName(iniFileName),
     ui(new Ui::EnvVarDialog)
 {
@@ -124,6 +124,15 @@ void EnvVarDialog::on_btnTransferToPC_clicked()
     CmdProcess *proc = new CmdProcess(m_env, QString("環境変数をPCに転送"), cmdLines, ".sh");
     proc->run();
 #else
+    if (!m_home.isEmpty())
+    {
+        QProcess proc;
+        proc.setProgram(ProgramDB().which("rapidee.exe"));
+        proc.setArguments(QStringList() << "-S" << "HOME" << m_home.replace("/", "\\"));
+        proc.start();
+        proc.waitForFinished();
+        qDebug() << "HOME" << proc.exitCode();
+    }
     SpiderSettings settings(m_env, m_repo);
     settings.settings().beginGroup("environmentVariable");
     auto keys = settings.settings().childKeys();
